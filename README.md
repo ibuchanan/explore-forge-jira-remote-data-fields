@@ -15,10 +15,10 @@ No Jira properties are read, written, or indexed yet. Consequently, the manifest
 
 ```bash
 bun install
-bun run --filter rovo-agent-connector-remote-backend check
+bun run --filter jira-remote-data-fields-backend check
 ```
 
-Set `REMOTE_BASE_URL` to the public URL of the remote before deploying the Forge app. The manifest declares it as a compute remote endpoint at `/form`.
+Set `REMOTE_BASE_URL` to the public URL of the remote before deploying the Forge app. The manifest declares it as a compute remote endpoint; the Custom UI selects API routes such as `/form/step` with `invokeRemote`.
 
 ## Next implementation steps
 

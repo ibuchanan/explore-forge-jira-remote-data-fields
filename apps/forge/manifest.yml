@@ -9,8 +9,6 @@ modules:
   endpoint:
     - key: text-properties-api
       remote: text-properties-remote
-      route:
-        path: /form
   jira:issueContext:
     - key: text-properties
       resource: text-properties-ui
