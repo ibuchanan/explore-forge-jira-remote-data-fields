@@ -1,9 +1,8 @@
 import { fileURLToPath } from "node:url";
-
-import type { ForgeRemoteAuthHookOptions } from "./forge-remote-auth.js";
-import { forgeRemoteAuthHook } from "./forge-remote-auth.js";
 import fastify, { type FastifyReply } from "fastify";
 import openapiGlue from "fastify-openapi-glue";
+import type { ForgeRemoteAuthHookOptions } from "./forge-remote-auth.js";
+import { forgeRemoteAuthHook } from "./forge-remote-auth.js";
 
 const specification = fileURLToPath(
   new URL("../../openapi.yaml", import.meta.url),
