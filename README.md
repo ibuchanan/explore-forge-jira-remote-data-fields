@@ -6,8 +6,8 @@ This repository is a minimal starting point for a Jira issue-context UI that wil
 
 - The Forge app contributes a **Text properties** issue-context panel.
 - The panel is intentionally a static **Not implemented.** stub.
-- The Fastify remote registers its routes from an in-code OpenAPI specification through `fastify-openapi-glue`.
-- `GET /form` and `POST /form` both fail closed with an RFC 9457-style `501 Not Implemented` response.
+- The Fastify remote registers routes and request validation from [`apps/remote/openapi.yaml`](apps/remote/openapi.yaml) through `fastify-openapi-glue`.
+- The contract's `POST /form/step`, `POST /fields/{fieldKey}/options`, and `POST /form/validate` operations currently fail closed with an RFC 9457-style `501 Not Implemented` response.
 
 No Jira properties are read, written, or indexed yet. Consequently, the manifest requests no Jira OAuth scopes and has no `jira:entityProperty` module.
 

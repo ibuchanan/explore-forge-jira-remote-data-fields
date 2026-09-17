@@ -1,22 +1,9 @@
+import { fileURLToPath } from "node:url";
+
 import fastify, { type FastifyReply } from "fastify";
 import openapiGlue from "fastify-openapi-glue";
 
-const specification = {
-  openapi: "3.2.1",
-  info: { title: "Text properties API", version: "0.0.0" },
-  paths: {
-    "/form": {
-      get: {
-        operationId: "getForm",
-        responses: { 501: { description: "Not implemented" } },
-      },
-      post: {
-        operationId: "submitForm",
-        responses: { 501: { description: "Not implemented" } },
-      },
-    },
-  },
-};
+const specification = fileURLToPath(new URL("../../openapi.yaml", import.meta.url));
 
 function notImplemented(reply: FastifyReply) {
   return reply.code(501).type("application/problem+json").send({
@@ -32,9 +19,11 @@ export function createServer() {
   app.register(openapiGlue, {
     specification,
     serviceHandlers: {
-      getForm: (_request: unknown, reply: FastifyReply) =>
+      evaluateFormStep: (_request: unknown, reply: FastifyReply) =>
         notImplemented(reply),
-      submitForm: (_request: unknown, reply: FastifyReply) =>
+      searchFieldOptions: (_request: unknown, reply: FastifyReply) =>
+        notImplemented(reply),
+      validateFormState: (_request: unknown, reply: FastifyReply) =>
         notImplemented(reply),
     },
   });
