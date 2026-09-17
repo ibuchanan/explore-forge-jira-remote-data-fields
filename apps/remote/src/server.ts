@@ -1,9 +1,13 @@
 import { fileURLToPath } from "node:url";
 
+import type { ForgeRemoteAuthHookOptions } from "./forge-remote-auth.js";
+import { forgeRemoteAuthHook } from "./forge-remote-auth.js";
 import fastify, { type FastifyReply } from "fastify";
 import openapiGlue from "fastify-openapi-glue";
 
-const specification = fileURLToPath(new URL("../../openapi.yaml", import.meta.url));
+const specification = fileURLToPath(
+  new URL("../../openapi.yaml", import.meta.url),
+);
 
 function notImplemented(reply: FastifyReply) {
   return reply.code(501).type("application/problem+json").send({
@@ -14,8 +18,9 @@ function notImplemented(reply: FastifyReply) {
   });
 }
 
-export function createServer() {
+export function createServer(auth: ForgeRemoteAuthHookOptions = {}) {
   const app = fastify();
+  app.addHook("onRequest", forgeRemoteAuthHook(auth));
   app.register(openapiGlue, {
     specification,
     serviceHandlers: {

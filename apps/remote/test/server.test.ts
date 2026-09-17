@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
+import { generateKeyPair, SignJWT } from "jose";
+
 import { createServer } from "../src/server.js";
 
 const requests = [
@@ -13,11 +15,28 @@ const requests = [
   { name: "form validation", url: "/form/validate", payload: { state: {} } },
 ];
 
+async function createAuthenticatedServer() {
+  const { privateKey, publicKey } = await generateKeyPair("RS256");
+  const token = await new SignJWT({ app: { id: "test-app" } })
+    .setProtectedHeader({ alg: "RS256", kid: "test-key" })
+    .setIssuer("forge/invocation-token")
+    .setAudience("test-app")
+    .setExpirationTime("1h")
+    .sign(privateKey);
+
+  return {
+    authorization: `Bearer ${token}`,
+    server: createServer({ jwks: async () => publicKey }),
+  };
+}
+
 for (const { name, url, payload } of requests) {
   test(`returns a standard not-implemented problem for ${name}`, async () => {
-    const response = await createServer().inject({
+    const { authorization, server } = await createAuthenticatedServer();
+    const response = await server.inject({
       method: "POST",
       url,
+      headers: { authorization },
       payload,
     });
 
@@ -31,10 +50,22 @@ for (const { name, url, payload } of requests) {
   });
 }
 
-test("validates requests against the OpenAPI schema", async () => {
+test("rejects requests without a Forge Invocation Token", async () => {
   const response = await createServer().inject({
     method: "POST",
     url: "/form/step",
+    payload: { state: {} },
+  });
+
+  assert.equal(response.statusCode, 401);
+});
+
+test("validates authenticated requests against the OpenAPI schema", async () => {
+  const { authorization, server } = await createAuthenticatedServer();
+  const response = await server.inject({
+    method: "POST",
+    url: "/form/step",
+    headers: { authorization },
     payload: {},
   });
 

@@ -11,7 +11,7 @@
     "check": "npm run format:check && npm run lint && npm run typecheck && npm run test",
     "format": "biome format --write",
     "format:check": "biome format",
-    "lint": "lefthook lint-remote",
+    "lint": "lefthook run lint-remote",
     "lint:biome": "biome lint",
     "lint:fix": "biome lint --write",
     "lint:openapi": "vacuum lint openapi.yaml",
