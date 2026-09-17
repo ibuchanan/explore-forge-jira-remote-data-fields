@@ -29,6 +29,7 @@ const root = getRoot();
 let state: FormState = {};
 let step: FormStep | undefined;
 let options: string[] = [];
+let resultsTruncated = false;
 let loading = false;
 let error: string | undefined;
 let searchSequence = 0;
@@ -71,6 +72,7 @@ async function evaluate(nextState: FormState) {
   setBusy(true);
   error = undefined;
   options = [];
+  resultsTruncated = false;
   try {
     const response = await callRemote<FormStep>("/form/step", {
       state: nextState,
@@ -117,6 +119,7 @@ async function validate() {
 async function search(query: string) {
   if (!step || step.complete || query.length < step.field.minimumQueryLength) {
     options = [];
+    resultsTruncated = false;
     render();
     return;
   }
@@ -134,10 +137,12 @@ async function search(query: string) {
       );
     }
     options = response.body.options;
+    resultsTruncated = response.body.truncated;
     error = undefined;
   } catch (cause) {
     if (sequence !== searchSequence) return;
     options = [];
+    resultsTruncated = false;
     error =
       cause instanceof Error ? cause.message : "Options could not be loaded.";
   }
@@ -254,6 +259,14 @@ function render() {
       );
     }
     container.append(choices);
+
+    if (resultsTruncated) {
+      const hint = document.createElement("p");
+      hint.className = "hint";
+      hint.textContent =
+        "Showing the first 25 matches. Refine your search to see more.";
+      container.append(hint);
+    }
   }
 
   if (answers.length && !loading) {
