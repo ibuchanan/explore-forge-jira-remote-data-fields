@@ -1,0 +1,27 @@
+{
+  "name": "jira-remote-data-fields-backend",
+  "version": "0.0.0",
+  "private": true,
+  "description": "a Fastify stub for the Jira text-properties Forge Remote",
+  "license": "Apache-2.0",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf dist",
+    "check": "npm run format:check && npm run lint && npm run typecheck && npm run test",
+    "format": "biome format --write",
+    "format:check": "biome format",
+    "lint": "npm run lint:check",
+    "lint:check": "biome lint",
+    "lint:fix": "biome lint --write",
+    "start": "bun run build && bun run dist/index.js",
+    "test": "bun run build:test && bun test dist/test/*.test.js",
+    "build:test": "tsc --project tsconfig.test.json",
+    "typecheck": "tsc --project tsconfig.typecheck.json"
+  },
+  "dependencies": {
+    "fastify": "^5.12",
+    "fastify-openapi-glue": "^4.11"
+  },
+  "devDependencies": {}
+}

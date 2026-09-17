@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.typecheck.json",
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "noPropertyAccessFromIndexSignature": false,
+    "rootDir": "."
+  },
+  "include": ["src/**/*.ts", "test/**/*.ts"]
+}

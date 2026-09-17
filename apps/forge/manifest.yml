@@ -1,0 +1,31 @@
+app:
+  runtime:
+    name: nodejs24.x
+environment:
+  variables:
+    - REMOTE_BASE_URL
+modules:
+  # See: https://developer.atlassian.com/platform/forge/manifest-reference/endpoint
+  endpoint:
+    - key: text-properties-api
+      remote: text-properties-remote
+      route:
+        path: /form
+  jira:issueContext:
+    - key: text-properties
+      resource: text-properties-ui
+      resolver:
+        endpoint: text-properties-api
+      title: Text properties
+      label: Text properties
+# See: https://developer.atlassian.com/platform/forge/manifest-reference/remotes
+remotes:
+  - key: text-properties-remote
+    baseUrl: ${REMOTE_BASE_URL}
+    operations:
+      - compute
+permissions:
+  scopes: []
+resources:
+  - key: text-properties-ui
+    path: resources
