@@ -1,6 +1,7 @@
 app:
   runtime:
     name: nodejs24.x
+  id: ari:cloud:ecosystem::app/91e76e8d-752b-417d-8586-71679349e07b
 environment:
   variables:
     - REMOTE_BASE_URL

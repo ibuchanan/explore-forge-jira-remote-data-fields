@@ -5,12 +5,20 @@
   "description": "a Jira text-properties UI backed by a Forge Remote",
   "license": "Apache-2.0",
   "scripts": {
-    "check": "npm run lint",
-    "forge:deploy": "bash ../../scripts/env-var.sh 'forge deploy --environment \"$FORGE_ENVIRONMENT\"'",
-    "forge:deploy:approve-system-user-change": "bash ../../scripts/env-var.sh 'forge deploy --environment \"$FORGE_ENVIRONMENT\" --approve SYSTEM_USER_CHANGE_RULE'",
+    "build": "bun build src/index.ts --target browser --format iife --outfile resources/index.js",
+    "check": "bun run build && bun run lint",
+    "forge:deploy": "bun run build && bash ../../scripts/env-var.sh 'forge deploy --environment \"$FORGE_ENVIRONMENT\"'",
+    "forge:deploy:approve-system-user-change": "bun run build && bash ../../scripts/env-var.sh 'forge deploy --environment \"$FORGE_ENVIRONMENT\" --approve SYSTEM_USER_CHANGE_RULE'",
     "forge:install": "bash ../../scripts/env-var.sh 'forge install --site \"$FORGE_SITE\" --product \"$FORGE_PRODUCT\" --environment \"$FORGE_ENVIRONMENT\" --non-interactive'",
     "forge:uninstall": "bash ../../scripts/env-var.sh 'forge uninstall --site \"$FORGE_SITE\" --product \"$FORGE_PRODUCT\" --environment \"$FORGE_ENVIRONMENT\"'",
     "forge:upgrade": "bash ../../scripts/env-var.sh 'forge install --upgrade --site \"$FORGE_SITE\" --product \"$FORGE_PRODUCT\" --environment \"$FORGE_ENVIRONMENT\" --non-interactive'",
-    "lint": "bash ../../scripts/env-var.sh 'forge lint'"
+    "lint": "bun run lint:biome && bun run typecheck",
+    "lint:biome": "biome check resources/index.html src",
+    "lint:forge": "bash ../../scripts/env-var.sh 'forge lint'",
+    "lint:prelint": "bun run build",
+    "typecheck": "tsc --project tsconfig.json"
+  },
+  "dependencies": {
+    "@forge/bridge": "^7.0.0"
   }
 }
