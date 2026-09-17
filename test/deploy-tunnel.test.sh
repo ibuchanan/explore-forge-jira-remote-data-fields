@@ -6,7 +6,10 @@ approval_flag=${1:-}
 case $approval_flag in
 "") deploy_script=forge:deploy ;;
 --approve-system-user-change) deploy_script=forge:deploy:approve-system-user-change ;;
-*) printf '%s\n' 'usage: test/deploy-tunnel.test.sh [--approve-system-user-change]' >&2; exit 64 ;;
+*)
+	printf '%s\n' 'usage: test/deploy-tunnel.test.sh [--approve-system-user-change]' >&2
+	exit 64
+	;;
 esac
 tmp=$(mktemp -d "${TMPDIR:-/tmp}/tmp_rovo_deploy_tunnel.XXXXXX")
 trap 'kill "${deploy_pid:-}" 2>/dev/null || true; rm -rf "$tmp"' EXIT
@@ -24,14 +27,20 @@ EOF
 
 cat >"$tmp/npm" <<EOF
 #!/usr/bin/env bash
-printf '%s\n' "\$*" >"$tmp/npm-args"
+case "\$*" in
+  "run remote:start")
+    printf '%s\\n' "\$*" >"$tmp/remote-start-args"
+    while :; do sleep 1; done
+    ;;
+  *) printf '%s\\n' "\$*" >"$tmp/npm-args" ;;
+esac
 EOF
 chmod +x "$tmp/cloudflared" "$tmp/secretspec" "$tmp/npm"
 
 if [[ -n $approval_flag ]]; then
-  PATH="$tmp:$PATH" bash "$root/scripts/deploy-tunnel.sh" "$approval_flag" >"$tmp/output" 2>"$tmp/log" &
+	PATH="$tmp:$PATH" bash "$root/scripts/deploy-tunnel.sh" "$approval_flag" >"$tmp/output" 2>"$tmp/log" &
 else
-  PATH="$tmp:$PATH" bash "$root/scripts/deploy-tunnel.sh" >"$tmp/output" 2>"$tmp/log" &
+	PATH="$tmp:$PATH" bash "$root/scripts/deploy-tunnel.sh" >"$tmp/output" 2>"$tmp/log" &
 fi
 deploy_pid=$!
 
@@ -46,5 +55,6 @@ if [[ ! -s $tmp/npm-args ]]; then
 fi
 
 test "$(cat "$tmp/secretspec-args")" = "--file $root/secretspec.toml set REMOTE_BASE_URL https://test-tunnel.trycloudflare.com"
+test "$(cat "$tmp/remote-start-args")" = "run remote:start"
 test "$(cat "$tmp/npm-args")" = "run $deploy_script"
 test "$(cat "$tmp/output")" = $'https://test-tunnel.trycloudflare.com\nTunnel up, deploy succeeded, waiting for app traffic'

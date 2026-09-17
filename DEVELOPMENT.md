@@ -13,6 +13,8 @@ The Fastify server exposes `GET /form` and `POST /form`. Both deliberately retur
 
 ## Deploy the Forge app
 
-Set `REMOTE_BASE_URL` to an HTTPS URL for the remote and deploy the Forge workspace with the existing Forge scripts. The `jira:issueContext` module renders its static placeholder and routes remote resolver calls to `/form`.
+Run `npm run forge:deploy:tunnel` to start the remote, expose it through a Cloudflare Quick Tunnel, set `REMOTE_BASE_URL`, and deploy the Forge workspace. Keep that command running while exercising the app; it stops both the remote and tunnel on exit. The `jira:issueContext` module renders its static placeholder and routes remote resolver calls to `/form`.
+
+For a tunnel without deployment, run `npm run remote:start` in one terminal and `bash scripts/tunnel.sh` in another.
 
 No Jira property reads, writes, or JQL indexing are implemented. Add scopes and the relevant persistence code only when those capabilities are built.

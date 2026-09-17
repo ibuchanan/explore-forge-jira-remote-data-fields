@@ -6,10 +6,11 @@ if ! command -v secretspec >/dev/null 2>&1; then
 	exit 127
 fi
 
-if [[ $# -ne 1 ]]; then
-	printf '%s\n' "usage: scripts/env-var.sh '<command>'" >&2
+if [[ $# -lt 1 || $# -gt 2 ]]; then
+	printf '%s\n' "usage: scripts/env-var.sh '<command>' [profile]" >&2
 	exit 64
 fi
 
 root=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
-exec secretspec --file "$root/secretspec.toml" run -- bash -ceu "$1"
+profile=${2:-default}
+exec secretspec --file "$root/secretspec.toml" run --profile "$profile" -- bash -ceu "$1"

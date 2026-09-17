@@ -18,7 +18,7 @@ npm install
 npm run --workspace=jira-remote-data-fields-backend check
 ```
 
-Set `REMOTE_BASE_URL` to the public URL of the remote before deploying the Forge app. The manifest declares it as a compute remote endpoint; the Custom UI selects API routes such as `/form/step` with `invokeRemote`.
+Run `npm run forge:deploy:tunnel` to start the remote, expose it through a Cloudflare Quick Tunnel, set `REMOTE_BASE_URL`, and deploy the Forge app. Keep that command running while using the app. The manifest declares it as a compute remote endpoint; the Custom UI selects API routes such as `/form/step` with `invokeRemote`.
 
 ## Next implementation steps
 
