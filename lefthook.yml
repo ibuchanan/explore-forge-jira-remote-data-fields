@@ -1,0 +1,59 @@
+colors: false
+output:
+  - meta
+  - summary
+  - failure
+
+lint-forge:
+  parallel: true
+  commands:
+    prelint:
+      root: "apps/forge/"
+      run: npm run lint:prelint
+    biome:
+      root: "apps/forge/"
+      run: npm run lint:biome
+    forge:
+      root: "apps/forge/"
+      run: npm run lint:forge
+    typecheck:
+      root: "apps/forge/"
+      run: npm run typecheck
+
+lint-remote:
+  parallel: true
+  commands:
+    biome:
+      root: "apps/remote/"
+      run: npm run lint:biome
+    openapi:
+      root: "apps/remote/"
+      run: npm run lint:openapi
+    typecheck:
+      root: "apps/remote/"
+      run: npm run typecheck
+
+pre-commit:
+  parallel: true
+  commands:
+    gitleaks:
+      run: |
+        command -v gitleaks >/dev/null 2>&1 || {
+          echo "gitleaks not found on PATH. Install it with: brew install gitleaks" >&2
+          exit 1
+        }
+        gitleaks git --pre-commit --staged
+    format:
+      run: npm run format
+      stage_fixed: true
+
+pre-push:
+  parallel: true
+  commands:
+    format:
+      run: npm run format:check
+    lint:
+      run: npm run lint
+    test:
+      run: npm run test
+lefthook.yml (END)

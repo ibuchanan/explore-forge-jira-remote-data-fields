@@ -11,17 +11,22 @@
     "check": "npm run format:check && npm run lint && npm run typecheck && npm run test",
     "format": "biome format --write",
     "format:check": "biome format",
-    "lint": "npm run lint:check",
-    "lint:check": "biome lint",
+    "lint": "lefthook lint-remote",
+    "lint:biome": "biome lint",
     "lint:fix": "biome lint --write",
+    "lint:openapi": "vacuum lint openapi.yaml",
     "start": "bun run build && bun run dist/index.js",
     "test": "bun run build:test && bun test dist/test/*.test.js",
     "build:test": "tsc --project tsconfig.test.json",
     "typecheck": "tsc --project tsconfig.typecheck.json"
   },
   "dependencies": {
+    "@forge-ahead/errors": "github:ibuchanan/forge-ahead-errors",
+    "@forge-ahead/logging": "github:ibuchanan/forge-ahead-logging",
+    "@forge-ahead/remote": "github:ibuchanan/forge-ahead-remote",
     "fastify": "^5.12",
-    "fastify-openapi-glue": "^4.11"
+    "fastify-openapi-glue": "^4.11",
+    "@quobix/vacuum": "^0.30"
   },
   "devDependencies": {}
 }

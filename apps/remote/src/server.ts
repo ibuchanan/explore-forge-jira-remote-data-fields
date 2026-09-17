@@ -2,7 +2,7 @@ import fastify, { type FastifyReply } from "fastify";
 import openapiGlue from "fastify-openapi-glue";
 
 const specification = {
-  openapi: "3.0.3",
+  openapi: "3.2.1",
   info: { title: "Text properties API", version: "0.0.0" },
   paths: {
     "/form": {
