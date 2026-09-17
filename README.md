@@ -14,8 +14,8 @@ No Jira properties are read, written, or indexed yet. Consequently, the manifest
 ## Development
 
 ```bash
-bun install
-bun run --filter jira-remote-data-fields-backend check
+npm install
+npm run --workspace=jira-remote-data-fields-backend check
 ```
 
 Set `REMOTE_BASE_URL` to the public URL of the remote before deploying the Forge app. The manifest declares it as a compute remote endpoint; the Custom UI selects API routes such as `/form/step` with `invokeRemote`.

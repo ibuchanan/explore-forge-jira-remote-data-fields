@@ -1,12 +1,16 @@
+import { existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import fastify, { type FastifyReply } from "fastify";
 import openapiGlue from "fastify-openapi-glue";
 import type { ForgeRemoteAuthHookOptions } from "./forge-remote-auth.js";
 import { forgeRemoteAuthHook } from "./forge-remote-auth.js";
 
-const specification = fileURLToPath(
-  new URL("../../openapi.yaml", import.meta.url),
+const localSpecification = fileURLToPath(
+  new URL("../openapi.yaml", import.meta.url),
 );
+const specification = existsSync(localSpecification)
+  ? localSpecification
+  : fileURLToPath(new URL("../../openapi.yaml", import.meta.url));
 
 function notImplemented(reply: FastifyReply) {
   return reply.code(501).type("application/problem+json").send({

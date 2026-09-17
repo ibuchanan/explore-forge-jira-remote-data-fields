@@ -15,8 +15,8 @@
     "lint:biome": "biome lint",
     "lint:fix": "biome lint --write",
     "lint:openapi": "vacuum lint openapi.yaml",
-    "start": "bun run build && bun run dist/index.js",
-    "test": "bun run build:test && bun test dist/test/*.test.js",
+    "start": "npm run build && node dist/index.js",
+    "test": "npm run build:test && node --test dist/test/*.test.js",
     "build:test": "tsc --project tsconfig.test.json",
     "typecheck": "tsc --project tsconfig.typecheck.json"
   },

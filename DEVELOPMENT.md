@@ -5,8 +5,8 @@ This is a stub for a Jira text-properties UI backed by a Forge Remote.
 ## Validate the remote
 
 ```bash
-bun install
-bun run --filter rovo-agent-connector-remote-backend check
+npm install
+npm run --workspace=jira-remote-data-fields-backend check
 ```
 
 The Fastify server exposes `GET /form` and `POST /form`. Both deliberately return a `501 Not Implemented` problem response until the form contract is implemented.
