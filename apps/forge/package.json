@@ -5,7 +5,7 @@
   "description": "a Jira text-properties UI backed by a Forge Remote",
   "license": "Apache-2.0",
   "scripts": {
-    "build": "bun build src/index.ts --target browser --format iife --outfile resources/index.js",
+    "build": "bun build src/index.tsx --target browser --format esm --outdir resources",
     "check": "bun run build && bun run lint",
     "forge:deploy": "bun run build && bash ../../scripts/env-var.sh 'forge deploy --environment \"$FORGE_ENVIRONMENT\"'",
     "forge:deploy:approve-system-user-change": "bun run build && bash ../../scripts/env-var.sh 'forge deploy --environment \"$FORGE_ENVIRONMENT\" --approve SYSTEM_USER_CHANGE_RULE'",
@@ -16,9 +16,23 @@
     "lint:biome": "biome check resources/index.html src",
     "lint:forge": "bash ../../scripts/env-var.sh 'forge lint'",
     "lint:prelint": "bun run build",
-    "typecheck": "tsc --project tsconfig.json"
+    "typecheck": "tsc --project tsconfig.typecheck.json"
   },
   "dependencies": {
-    "@forge/bridge": "^7.0.0"
+    "@atlaskit/button": "^25.3",
+    "@atlaskit/css-reset": "^8.4",
+    "@atlaskit/primitives": "^22.5",
+    "@atlaskit/section-message": "^10.2",
+    "@atlaskit/select": "^18.4",
+    "@atlaskit/textfield": "^10.2",
+    "@forge/api": "^8.1",
+    "@forge/bridge": "^7.0",
+    "@forge/resolver": "^2.0",
+    "react": "^18.3",
+    "react-dom": "^18.3"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3",
+    "@types/react-dom": "^18.3"
   }
 }

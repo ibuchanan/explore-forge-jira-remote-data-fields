@@ -10,13 +10,16 @@ modules:
   endpoint:
     - key: text-properties-api
       remote: text-properties-remote
+  function:
+    - key: save-text-properties
+      handler: resolvers.handler
   jira:issueContext:
     - key: text-properties
       resource: text-properties-ui
       resolver:
         endpoint: text-properties-api
-      title: Text properties
-      label: Text properties
+      title: Remote data fields
+      label: Remote data fields
 # See: https://developer.atlassian.com/platform/forge/manifest-reference/remotes
 remotes:
   - key: text-properties-remote
@@ -24,7 +27,11 @@ remotes:
     operations:
       - compute
 permissions:
-  scopes: []
+  scopes:
+    - write:jira-work
+  content:
+    styles:
+      - unsafe-inline
 resources:
   - key: text-properties-ui
     path: resources
