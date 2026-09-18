@@ -33,6 +33,18 @@ lint-remote:
       root: "apps/remote/"
       run: npm run typecheck
 
+format-check:
+  parallel: true
+  commands:
+    forge:
+      root: "apps/forge/"
+      run: npm run format:check
+    remote:
+      root: "apps/remote/"
+      run: npm run format:check
+    scripts:
+      run: npm run format:scripts
+
 pre-commit:
   parallel: true
   commands:

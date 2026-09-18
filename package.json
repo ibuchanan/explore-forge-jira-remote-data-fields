@@ -20,6 +20,7 @@
     "forge:uninstall": "npm run --workspace=jira-remote-data-fields-forge-app forge:uninstall",
     "forge:upgrade": "npm run --workspace=jira-remote-data-fields-forge-app forge:upgrade",
     "format": "npm run --workspaces --if-present format",
+    "format:check": "lefthook run format-check",
     "format:scripts": "shfmt -w scripts/*.sh test/*.sh",
     "lint": "npm run --workspaces --if-present lint",
     "lint:scripts": "shellcheck scripts/*.sh test/*.sh",

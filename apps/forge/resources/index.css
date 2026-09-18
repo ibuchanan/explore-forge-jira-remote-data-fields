@@ -1,22 +1,54 @@
 /* ../../node_modules/@atlaskit/css-reset/dist/bundle.css */
-html, body, p, div, h1, h2, h3, h4, h5, h6, ul, ol, dl, img, pre, form, fieldset {
+html,
+body,
+p,
+div,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+ol,
+dl,
+img,
+pre,
+form,
+fieldset {
   margin: 0;
   padding: 0;
 }
 
-img, fieldset {
+img,
+fieldset {
   border: 0;
 }
 
-body, html {
+body,
+html {
   width: 100%;
   height: 100%;
 }
 
-body, [data-subtree-theme] {
+body,
+[data-subtree-theme] {
   background-color: var(--ds-surface, #fff);
   color: var(--ds-text, #172b4d);
-  font: var(--ds-font-body, normal 400 14px / 1.42857 -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif);
+  font: var(
+    --ds-font-body,
+    normal 400 14px /
+    1.42857 -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    "Roboto",
+    "Oxygen",
+    "Ubuntu",
+    "Fira Sans",
+    "Droid Sans",
+    "Helvetica Neue",
+    sans-serif
+  );
 }
 
 body {
@@ -24,7 +56,20 @@ body {
   text-decoration-skip-ink: auto;
 }
 
-p, ul, ol, dl, h1, h2, h3, h4, h5, h6, blockquote, pre, form, table {
+p,
+ul,
+ol,
+dl,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+blockquote,
+pre,
+form,
+table {
   margin: var(--ds-space-150, 12px) 0 0 0;
 }
 
@@ -43,67 +88,187 @@ a:active {
 }
 
 a:focus-visible {
-  outline: var(--ds-border-width-focused, 2px) solid var(--ds-border-focused, #2684ff);
+  outline: var(--ds-border-width-focused, 2px) solid
+    var(--ds-border-focused, #2684ff);
   outline-offset: var(--ds-space-025, 2px);
 }
 
-@supports  not selector(*:focus-visible) {
+@supports not selector(*:focus-visible) {
   a:focus {
-    outline: var(--ds-border-width-focused, 2px) solid var(--ds-border-focused, #4c9aff);
+    outline: var(--ds-border-width-focused, 2px) solid
+      var(--ds-border-focused, #4c9aff);
     outline-offset: var(--ds-space-025, 2px);
   }
 }
 
 h1 {
-  font: var(--ds-font-heading-xlarge, 600 2.07143em / 1.10345 -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif);
+  font: var(
+    --ds-font-heading-xlarge,
+    600 2.07143em /
+    1.10345 -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    "Roboto",
+    "Oxygen",
+    "Ubuntu",
+    "Fira Sans",
+    "Droid Sans",
+    "Helvetica Neue",
+    sans-serif
+  );
   color: var(--ds-text);
   margin-top: var(--ds-space-500);
 }
 
 h2 {
-  font: var(--ds-font-heading-large, 500 1.71429em / 1.16667 -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif);
+  font: var(
+    --ds-font-heading-large,
+    500 1.71429em /
+    1.16667 -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    "Roboto",
+    "Oxygen",
+    "Ubuntu",
+    "Fira Sans",
+    "Droid Sans",
+    "Helvetica Neue",
+    sans-serif
+  );
   color: var(--ds-text);
   margin-top: var(--ds-space-500);
 }
 
 h3 {
-  font: var(--ds-font-heading-medium, 500 1.42857em / 1.2 -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif);
+  font: var(
+    --ds-font-heading-medium,
+    500 1.42857em /
+    1.2 -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    "Roboto",
+    "Oxygen",
+    "Ubuntu",
+    "Fira Sans",
+    "Droid Sans",
+    "Helvetica Neue",
+    sans-serif
+  );
   color: var(--ds-text);
   margin-top: 28px;
 }
 
 h4 {
-  font: var(--ds-font-heading-small, 600 1.14286em / 1.25 -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif);
+  font: var(
+    --ds-font-heading-small,
+    600 1.14286em /
+    1.25 -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    "Roboto",
+    "Oxygen",
+    "Ubuntu",
+    "Fira Sans",
+    "Droid Sans",
+    "Helvetica Neue",
+    sans-serif
+  );
   color: var(--ds-text);
   margin-top: var(--ds-space-300);
 }
 
 h5 {
-  font: var(--ds-font-heading-xsmall, 600 1em / 1.14286 -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif);
+  font: var(
+    --ds-font-heading-xsmall,
+    600 1em /
+    1.14286 -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    "Roboto",
+    "Oxygen",
+    "Ubuntu",
+    "Fira Sans",
+    "Droid Sans",
+    "Helvetica Neue",
+    sans-serif
+  );
   color: var(--ds-text);
   margin-top: var(--ds-space-200);
 }
 
 h6 {
-  font: var(--ds-font-heading-xxsmall, 600 .857143em / 1.33333 -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif);
+  font: var(
+    --ds-font-heading-xxsmall,
+    600 0.857143em /
+    1.33333 -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    "Roboto",
+    "Oxygen",
+    "Ubuntu",
+    "Fira Sans",
+    "Droid Sans",
+    "Helvetica Neue",
+    sans-serif
+  );
   color: var(--ds-text);
   margin-top: var(--ds-space-250);
   text-transform: uppercase;
 }
 
-ul, ol, dl {
+ul,
+ol,
+dl {
   padding-left: var(--ds-space-500, 40px);
 }
 
-dd, dd + dt, li + li, ul ul:not(:first-child), ul style:first-child ~ * + ul, ol ul:not(:first-child), ol style:first-child ~ * + ul, ul ol:not(:first-child), ul style:first-child ~ * + ol, ol ol:not(:first-child), ol style:first-child ~ * + ol {
+dd,
+dd + dt,
+li + li,
+ul ul:not(:first-child),
+ul style:first-child ~ * + ul,
+ol ul:not(:first-child),
+ol style:first-child ~ * + ul,
+ul ol:not(:first-child),
+ul style:first-child ~ * + ol,
+ol ol:not(:first-child),
+ol style:first-child ~ * + ol {
   margin-top: var(--ds-space-050, 4px);
 }
 
-p:first-child, style:first-child + p, ul:first-child, style:first-child + ul, ol:first-child, style:first-child + ol, dl:first-child, style:first-child + dl, h1:first-child, style:first-child + h1, h2:first-child, style:first-child + h2, h3:first-child, style:first-child + h3, h4:first-child, style:first-child + h4, h5:first-child, style:first-child + h5, h6:first-child, style:first-child + h6, blockquote:first-child, style:first-child + blockquote, pre:first-child, style:first-child + pre, form:first-child, style:first-child + form, table:first-child, style:first-child + table {
+p:first-child,
+style:first-child + p,
+ul:first-child,
+style:first-child + ul,
+ol:first-child,
+style:first-child + ol,
+dl:first-child,
+style:first-child + dl,
+h1:first-child,
+style:first-child + h1,
+h2:first-child,
+style:first-child + h2,
+h3:first-child,
+style:first-child + h3,
+h4:first-child,
+style:first-child + h4,
+h5:first-child,
+style:first-child + h5,
+h6:first-child,
+style:first-child + h6,
+blockquote:first-child,
+style:first-child + blockquote,
+pre:first-child,
+style:first-child + pre,
+form:first-child,
+style:first-child + form,
+table:first-child,
+style:first-child + table {
   margin-top: 0;
 }
 
-blockquote, q {
+blockquote,
+q {
   color: inherit;
 }
 
@@ -117,11 +282,13 @@ blockquote {
   padding-right: var(--ds-space-500, 40px);
 }
 
-blockquote:before, q:before {
+blockquote:before,
+q:before {
   content: "“";
 }
 
-blockquote:after, q:after {
+blockquote:after,
+q:after {
   content: "”";
 }
 
@@ -143,14 +310,35 @@ blockquote > :last-child {
 }
 
 small {
-  font: var(--ds-font-body-small, normal 400 11px / 16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif);
+  font: var(
+    --ds-font-body-small,
+    normal 400 11px /
+    16px ui-sans-serif,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Ubuntu,
+    "Helvetica Neue",
+    sans-serif
+  );
 }
 
-code, kbd {
-  font-family: var(--ds-font-family-code, ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace);
+code,
+kbd {
+  font-family: var(
+    --ds-font-family-code,
+    ui-monospace,
+    Menlo,
+    "Segoe UI Mono",
+    "Ubuntu Mono",
+    monospace
+  );
 }
 
-var, address, dfn, cite {
+var,
+address,
+dfn,
+cite {
   font-style: italic;
 }
 
@@ -178,11 +366,15 @@ table {
   width: 100%;
 }
 
-thead, tbody, tfoot {
-  border-bottom: var(--ds-border-width-selected, 2px) solid var(--ds-border, #dfe1e6);
+thead,
+tbody,
+tfoot {
+  border-bottom: var(--ds-border-width-selected, 2px) solid
+    var(--ds-border, #dfe1e6);
 }
 
-td, th {
+td,
+th {
   padding: var(--ds-space-050, 4px) var(--ds-space-100, 8px);
   text-align: left;
   border: none;
@@ -192,24 +384,49 @@ th {
   vertical-align: top;
 }
 
-td:first-child, style:first-child + td, th:first-child, style:first-child + th {
+td:first-child,
+style:first-child + td,
+th:first-child,
+style:first-child + th {
   padding-left: 0;
 }
 
-td:last-child, th:last-child {
+td:last-child,
+th:last-child {
   padding-right: 0;
 }
 
 caption {
-  font: var(--ds-font-heading-medium, 500 1.42857em / 1.2 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif);
-  letter-spacing: -.008em;
+  font: var(
+    --ds-font-heading-medium,
+    500 1.42857em /
+    1.2 ui-sans-serif,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Ubuntu,
+    "Helvetica Neue",
+    sans-serif
+  );
+  letter-spacing: -0.008em;
   color: var(--ds-text);
   margin-top: 28px;
   margin-bottom: var(--ds-space-100, 8px);
   text-align: left;
 }
 
-article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section {
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+menu,
+nav,
+section {
   display: block;
 }
 
@@ -227,11 +444,15 @@ button {
   font-family: inherit;
 }
 
-:root[data-scrollbar-harmonisation], :root[data-scrollbar-harmonisation] * {
-  scrollbar-color: var(--ds-border-input, #8c8f97) var(--ds-elevation-surface-current, #fff);
+:root[data-scrollbar-harmonisation],
+:root[data-scrollbar-harmonisation] * {
+  scrollbar-color: var(--ds-border-input, #8c8f97)
+    var(--ds-elevation-surface-current, #fff);
 }
 
-:root[data-scrollbar-harmonisation][data-scrollbar-harmonisation-transparent], :root[data-scrollbar-harmonisation][data-scrollbar-harmonisation-transparent] * {
+:root[data-scrollbar-harmonisation][data-scrollbar-harmonisation-transparent],
+:root[data-scrollbar-harmonisation][data-scrollbar-harmonisation-transparent]
+  * {
   scrollbar-color: var(--ds-border-input, #8c8f97) transparent;
 }
 
@@ -263,11 +484,13 @@ button {
   background-color: #0000;
 }
 
-:root[data-scrollbar-harmonisation][data-scrollbar-harmonisation-transparent] *::-webkit-scrollbar-track {
+:root[data-scrollbar-harmonisation][data-scrollbar-harmonisation-transparent]
+  *::-webkit-scrollbar-track {
   background-color: #0000;
 }
 
-:root[data-scrollbar-harmonisation][data-scrollbar-harmonisation-transparent] *::-webkit-scrollbar-corner {
+:root[data-scrollbar-harmonisation][data-scrollbar-harmonisation-transparent]
+  *::-webkit-scrollbar-corner {
   background-color: #0000;
 }
 
@@ -280,7 +503,11 @@ button {
 }
 
 @media (forced-colors: active) {
-  :root[data-scrollbar-harmonisation], :root[data-scrollbar-harmonisation] *, :root[data-scrollbar-harmonisation][data-scrollbar-harmonisation-transparent], :root[data-scrollbar-harmonisation][data-scrollbar-harmonisation-transparent] * {
+  :root[data-scrollbar-harmonisation],
+  :root[data-scrollbar-harmonisation] *,
+  :root[data-scrollbar-harmonisation][data-scrollbar-harmonisation-transparent],
+  :root[data-scrollbar-harmonisation][data-scrollbar-harmonisation-transparent]
+    * {
     scrollbar-color: auto;
   }
 
@@ -329,17 +556,20 @@ button {
     border: revert;
   }
 
-  :root[data-scrollbar-harmonisation][data-scrollbar-harmonisation-transparent] *::-webkit-scrollbar-track {
+  :root[data-scrollbar-harmonisation][data-scrollbar-harmonisation-transparent]
+    *::-webkit-scrollbar-track {
     background-color: revert;
     border: revert;
   }
 
-  :root[data-scrollbar-harmonisation][data-scrollbar-harmonisation-transparent] *::-webkit-scrollbar-thumb {
+  :root[data-scrollbar-harmonisation][data-scrollbar-harmonisation-transparent]
+    *::-webkit-scrollbar-thumb {
     background-color: revert;
     border: revert;
   }
 
-  :root[data-scrollbar-harmonisation][data-scrollbar-harmonisation-transparent] *::-webkit-scrollbar-corner {
+  :root[data-scrollbar-harmonisation][data-scrollbar-harmonisation-transparent]
+    *::-webkit-scrollbar-corner {
     background-color: revert;
     border: revert;
   }
@@ -425,7 +655,7 @@ button {
 }
 
 ._1pgl2qsq {
-  animation-timing-function: cubic-bezier(.4, .15, .6, .85);
+  animation-timing-function: cubic-bezier(0.4, 0.15, 0.6, 0.85);
 }
 
 ._1snbbs82 {
@@ -433,7 +663,7 @@ button {
 }
 
 ._5sag12kz {
-  animation-duration: .86s;
+  animation-duration: 0.86s;
 }
 
 ._5sag9cwz {
@@ -498,15 +728,48 @@ button {
 
 /* ../../node_modules/@atlaskit/primitives/dist/esm/compiled/components/metric-text.compiled.css */
 ._11c81xwm {
-  font: var(--ds-font-metric-large, normal 653 28px / 2pc "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif);
+  font: var(
+    --ds-font-metric-large,
+    normal 653 28px /
+    2pc "Atlassian Sans",
+    ui-sans-serif,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Ubuntu,
+    "Helvetica Neue",
+    sans-serif
+  );
 }
 
 ._11c85kmp {
-  font: var(--ds-font-metric-medium, normal 653 24px / 28px "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif);
+  font: var(
+    --ds-font-metric-medium,
+    normal 653 24px /
+    28px "Atlassian Sans",
+    ui-sans-serif,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Ubuntu,
+    "Helvetica Neue",
+    sans-serif
+  );
 }
 
 ._11c8ys40 {
-  font: var(--ds-font-metric-small, normal 653 1pc / 20px "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif);
+  font: var(
+    --ds-font-metric-small,
+    normal 653 1pc /
+    20px "Atlassian Sans",
+    ui-sans-serif,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Ubuntu,
+    "Helvetica Neue",
+    sans-serif
+  );
 }
 
 ._18u0idpf {
@@ -539,7 +802,18 @@ button {
 
 /* ../../node_modules/@atlaskit/section-message/dist/esm/section-message.compiled.css */
 ._11c8fhey {
-  font: var(--ds-font-body, normal 400 14px / 20px "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif);
+  font: var(
+    --ds-font-body,
+    normal 400 14px /
+    20px "Atlassian Sans",
+    ui-sans-serif,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Ubuntu,
+    "Helvetica Neue",
+    sans-serif
+  );
 }
 
 ._2rko1mok {
@@ -617,27 +891,27 @@ button {
 }
 
 ._1pgl1ddy {
-  animation-timing-function: cubic-bezier(.6, 0, 0, 1);
+  animation-timing-function: cubic-bezier(0.6, 0, 0, 1);
 }
 
 ._1pgl1fu8 {
-  animation-timing-function: cubic-bezier(.15, 1, .3, 1);
+  animation-timing-function: cubic-bezier(0.15, 1, 0.3, 1);
 }
 
 ._1pgl1nzg {
-  animation-timing-function: cubic-bezier(.8, 0, 0, .8);
+  animation-timing-function: cubic-bezier(0.8, 0, 0, 0.8);
 }
 
 ._1pgl5y64 {
-  animation-timing-function: cubic-bezier(.4, 0, 0, 1);
+  animation-timing-function: cubic-bezier(0.4, 0, 0, 1);
 }
 
 ._1pglannl {
-  animation-timing-function: cubic-bezier(.8, 0, 0, 1);
+  animation-timing-function: cubic-bezier(0.8, 0, 0, 1);
 }
 
 ._1pgldkwg {
-  animation-timing-function: cubic-bezier(.2, 0, 0, 1);
+  animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
 }
 
 ._1pglp3kn {
@@ -657,19 +931,19 @@ button {
 }
 
 ._5sag1ttt {
-  animation-duration: .35s;
+  animation-duration: 0.35s;
 }
 
 ._5sag1yx9 {
-  animation-duration: .1s;
+  animation-duration: 0.1s;
 }
 
 ._5sagluct {
-  animation-duration: .175s;
+  animation-duration: 0.175s;
 }
 
 ._5sagpwmj {
-  animation-duration: .7s;
+  animation-duration: 0.7s;
 }
 
 ._j7hq15do {
@@ -911,7 +1185,7 @@ button {
 @keyframes k1rq2oqw {
   0% {
     opacity: 0;
-    transform: scale(.5);
+    transform: scale(0.5);
   }
 
   50% {
@@ -942,7 +1216,7 @@ button {
 @keyframes k1tay9q1 {
   to {
     opacity: 0;
-    transform: scale(.75);
+    transform: scale(0.75);
   }
 }
 
@@ -1214,7 +1488,7 @@ button {
 }
 
 ._1oecdn4k {
-  transition-duration: var(--ds-duration-xshort, .1s);
+  transition-duration: var(--ds-duration-xshort, 0.1s);
 }
 
 ._1p1dglyw {
@@ -1310,7 +1584,18 @@ button {
 
 /* ../../node_modules/@atlaskit/button/node_modules/@atlaskit/tooltip/dist/esm/tooltip-container.compiled.css */
 ._11c8wadc {
-  font: var(--ds-font-body-small, normal 400 9pt / 1pc "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif);
+  font: var(
+    --ds-font-body-small,
+    normal 400 9pt /
+    1pc "Atlassian Sans",
+    ui-sans-serif,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Ubuntu,
+    "Helvetica Neue",
+    sans-serif
+  );
 }
 
 ._2rkofajl {
@@ -1329,27 +1614,153 @@ button {
   text-overflow: ellipsis;
 }
 
-._1e02ze3t:not(:-webkit-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+._1e02ze3t:not(
+  :-webkit-any(
+    :lang(ae),
+    :lang(ar),
+    :lang(arc),
+    :lang(bcc),
+    :lang(bqi),
+    :lang(ckb),
+    :lang(dv),
+    :lang(fa),
+    :lang(glk),
+    :lang(he),
+    :lang(ku),
+    :lang(mzn),
+    :lang(nqo),
+    :lang(pnb),
+    :lang(ps),
+    :lang(sd),
+    :lang(ug),
+    :lang(ur),
+    :lang(yi)
+  )
+) {
   left: var(--ds-space-0, 0);
 }
 
-._1e02ze3t:not(:-moz-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+._1e02ze3t:not(
+  :-moz-any(
+    :lang(ae),
+    :lang(ar),
+    :lang(arc),
+    :lang(bcc),
+    :lang(bqi),
+    :lang(ckb),
+    :lang(dv),
+    :lang(fa),
+    :lang(glk),
+    :lang(he),
+    :lang(ku),
+    :lang(mzn),
+    :lang(nqo),
+    :lang(pnb),
+    :lang(ps),
+    :lang(sd),
+    :lang(ug),
+    :lang(ur),
+    :lang(yi)
+  )
+) {
   left: var(--ds-space-0, 0);
 }
 
-._1e02ze3t:not(:is(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+._1e02ze3t:not(
+  :is(
+    :lang(ae),
+    :lang(ar),
+    :lang(arc),
+    :lang(bcc),
+    :lang(bqi),
+    :lang(ckb),
+    :lang(dv),
+    :lang(fa),
+    :lang(glk),
+    :lang(he),
+    :lang(ku),
+    :lang(mzn),
+    :lang(nqo),
+    :lang(pnb),
+    :lang(ps),
+    :lang(sd),
+    :lang(ug),
+    :lang(ur),
+    :lang(yi)
+  )
+) {
   left: var(--ds-space-0, 0);
 }
 
-._1e02ze3t:-webkit-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+._1e02ze3t:-webkit-any(
+  :lang(ae),
+  :lang(ar),
+  :lang(arc),
+  :lang(bcc),
+  :lang(bqi),
+  :lang(ckb),
+  :lang(dv),
+  :lang(fa),
+  :lang(glk),
+  :lang(he),
+  :lang(ku),
+  :lang(mzn),
+  :lang(nqo),
+  :lang(pnb),
+  :lang(ps),
+  :lang(sd),
+  :lang(ug),
+  :lang(ur),
+  :lang(yi)
+) {
   right: var(--ds-space-0, 0);
 }
 
-._1e02ze3t:-moz-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+._1e02ze3t:-moz-any(
+  :lang(ae),
+  :lang(ar),
+  :lang(arc),
+  :lang(bcc),
+  :lang(bqi),
+  :lang(ckb),
+  :lang(dv),
+  :lang(fa),
+  :lang(glk),
+  :lang(he),
+  :lang(ku),
+  :lang(mzn),
+  :lang(nqo),
+  :lang(pnb),
+  :lang(ps),
+  :lang(sd),
+  :lang(ug),
+  :lang(ur),
+  :lang(yi)
+) {
   right: var(--ds-space-0, 0);
 }
 
-._1e02ze3t:is(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+._1e02ze3t:is(
+  :lang(ae),
+  :lang(ar),
+  :lang(arc),
+  :lang(bcc),
+  :lang(bqi),
+  :lang(ckb),
+  :lang(dv),
+  :lang(fa),
+  :lang(glk),
+  :lang(he),
+  :lang(ku),
+  :lang(mzn),
+  :lang(nqo),
+  :lang(pnb),
+  :lang(ps),
+  :lang(sd),
+  :lang(ug),
+  :lang(ur),
+  :lang(yi)
+) {
   right: var(--ds-space-0, 0);
 }
 
@@ -1412,7 +1823,18 @@ button {
 
 /* ../../node_modules/@atlaskit/button/node_modules/@atlaskit/tooltip/dist/esm/tooltip-shortcut.compiled.css */
 ._11c8wadc {
-  font: var(--ds-font-body-small, normal 400 9pt / 1pc "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif);
+  font: var(
+    --ds-font-body-small,
+    normal 400 9pt /
+    1pc "Atlassian Sans",
+    ui-sans-serif,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Ubuntu,
+    "Helvetica Neue",
+    sans-serif
+  );
 }
 
 ._2rkolb4i {
@@ -1468,7 +1890,7 @@ button {
 }
 
 ._4cvr1h6o {
-  align-items:  center;
+  align-items: center;
 }
 
 ._4t3i1k92 {
@@ -1517,7 +1939,18 @@ button {
 
 /* ../../node_modules/@atlaskit/button/dist/esm/new-button/variants/shared/button-base.compiled.css */
 ._11c8fhey {
-  font: var(--ds-font-body, normal 400 14px / 20px "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif);
+  font: var(
+    --ds-font-body,
+    normal 400 14px /
+    20px "Atlassian Sans",
+    ui-sans-serif,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Ubuntu,
+    "Helvetica Neue",
+    sans-serif
+  );
 }
 
 ._14mj1kw7:after {
@@ -1541,11 +1974,14 @@ button {
 }
 
 ._v5649dqc {
-  transition: background .1s ease-out;
+  transition: background 0.1s ease-out;
 }
 
 ._v564k6bl {
-  transition: var(--ds-button-hovered, background-color border-color .15s cubic-bezier(.4, 1, .6, 1));
+  transition: var(
+    --ds-button-hovered,
+    background-color border-color 0.15s cubic-bezier(0.4, 1, 0.6, 1)
+  );
 }
 
 ._189eidpf {
@@ -1620,27 +2056,153 @@ button {
   width: 2rem;
 }
 
-._1e02ze3t:not(:-webkit-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+._1e02ze3t:not(
+  :-webkit-any(
+    :lang(ae),
+    :lang(ar),
+    :lang(arc),
+    :lang(bcc),
+    :lang(bqi),
+    :lang(ckb),
+    :lang(dv),
+    :lang(fa),
+    :lang(glk),
+    :lang(he),
+    :lang(ku),
+    :lang(mzn),
+    :lang(nqo),
+    :lang(pnb),
+    :lang(ps),
+    :lang(sd),
+    :lang(ug),
+    :lang(ur),
+    :lang(yi)
+  )
+) {
   left: var(--ds-space-0, 0);
 }
 
-._1e02ze3t:not(:-moz-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+._1e02ze3t:not(
+  :-moz-any(
+    :lang(ae),
+    :lang(ar),
+    :lang(arc),
+    :lang(bcc),
+    :lang(bqi),
+    :lang(ckb),
+    :lang(dv),
+    :lang(fa),
+    :lang(glk),
+    :lang(he),
+    :lang(ku),
+    :lang(mzn),
+    :lang(nqo),
+    :lang(pnb),
+    :lang(ps),
+    :lang(sd),
+    :lang(ug),
+    :lang(ur),
+    :lang(yi)
+  )
+) {
   left: var(--ds-space-0, 0);
 }
 
-._1e02ze3t:not(:is(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+._1e02ze3t:not(
+  :is(
+    :lang(ae),
+    :lang(ar),
+    :lang(arc),
+    :lang(bcc),
+    :lang(bqi),
+    :lang(ckb),
+    :lang(dv),
+    :lang(fa),
+    :lang(glk),
+    :lang(he),
+    :lang(ku),
+    :lang(mzn),
+    :lang(nqo),
+    :lang(pnb),
+    :lang(ps),
+    :lang(sd),
+    :lang(ug),
+    :lang(ur),
+    :lang(yi)
+  )
+) {
   left: var(--ds-space-0, 0);
 }
 
-._1e02ze3t:-webkit-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+._1e02ze3t:-webkit-any(
+  :lang(ae),
+  :lang(ar),
+  :lang(arc),
+  :lang(bcc),
+  :lang(bqi),
+  :lang(ckb),
+  :lang(dv),
+  :lang(fa),
+  :lang(glk),
+  :lang(he),
+  :lang(ku),
+  :lang(mzn),
+  :lang(nqo),
+  :lang(pnb),
+  :lang(ps),
+  :lang(sd),
+  :lang(ug),
+  :lang(ur),
+  :lang(yi)
+) {
   right: var(--ds-space-0, 0);
 }
 
-._1e02ze3t:-moz-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+._1e02ze3t:-moz-any(
+  :lang(ae),
+  :lang(ar),
+  :lang(arc),
+  :lang(bcc),
+  :lang(bqi),
+  :lang(ckb),
+  :lang(dv),
+  :lang(fa),
+  :lang(glk),
+  :lang(he),
+  :lang(ku),
+  :lang(mzn),
+  :lang(nqo),
+  :lang(pnb),
+  :lang(ps),
+  :lang(sd),
+  :lang(ug),
+  :lang(ur),
+  :lang(yi)
+) {
   right: var(--ds-space-0, 0);
 }
 
-._1e02ze3t:is(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+._1e02ze3t:is(
+  :lang(ae),
+  :lang(ar),
+  :lang(arc),
+  :lang(bcc),
+  :lang(bqi),
+  :lang(ckb),
+  :lang(dv),
+  :lang(fa),
+  :lang(glk),
+  :lang(he),
+  :lang(ku),
+  :lang(mzn),
+  :lang(nqo),
+  :lang(pnb),
+  :lang(ps),
+  :lang(sd),
+  :lang(ug),
+  :lang(ur),
+  :lang(yi)
+) {
   right: var(--ds-space-0, 0);
 }
 
@@ -1673,7 +2235,7 @@ button {
 }
 
 ._4cvr1h6o {
-  align-items:  center;
+  align-items: center;
 }
 
 ._4cvr1q9y {
@@ -1776,27 +2338,153 @@ button {
   max-width: 100%;
 }
 
-._rjxpze3t:not(:-webkit-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+._rjxpze3t:not(
+  :-webkit-any(
+    :lang(ae),
+    :lang(ar),
+    :lang(arc),
+    :lang(bcc),
+    :lang(bqi),
+    :lang(ckb),
+    :lang(dv),
+    :lang(fa),
+    :lang(glk),
+    :lang(he),
+    :lang(ku),
+    :lang(mzn),
+    :lang(nqo),
+    :lang(pnb),
+    :lang(ps),
+    :lang(sd),
+    :lang(ug),
+    :lang(ur),
+    :lang(yi)
+  )
+) {
   right: var(--ds-space-0, 0);
 }
 
-._rjxpze3t:not(:-moz-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+._rjxpze3t:not(
+  :-moz-any(
+    :lang(ae),
+    :lang(ar),
+    :lang(arc),
+    :lang(bcc),
+    :lang(bqi),
+    :lang(ckb),
+    :lang(dv),
+    :lang(fa),
+    :lang(glk),
+    :lang(he),
+    :lang(ku),
+    :lang(mzn),
+    :lang(nqo),
+    :lang(pnb),
+    :lang(ps),
+    :lang(sd),
+    :lang(ug),
+    :lang(ur),
+    :lang(yi)
+  )
+) {
   right: var(--ds-space-0, 0);
 }
 
-._rjxpze3t:not(:is(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+._rjxpze3t:not(
+  :is(
+    :lang(ae),
+    :lang(ar),
+    :lang(arc),
+    :lang(bcc),
+    :lang(bqi),
+    :lang(ckb),
+    :lang(dv),
+    :lang(fa),
+    :lang(glk),
+    :lang(he),
+    :lang(ku),
+    :lang(mzn),
+    :lang(nqo),
+    :lang(pnb),
+    :lang(ps),
+    :lang(sd),
+    :lang(ug),
+    :lang(ur),
+    :lang(yi)
+  )
+) {
   right: var(--ds-space-0, 0);
 }
 
-._rjxpze3t:-webkit-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+._rjxpze3t:-webkit-any(
+  :lang(ae),
+  :lang(ar),
+  :lang(arc),
+  :lang(bcc),
+  :lang(bqi),
+  :lang(ckb),
+  :lang(dv),
+  :lang(fa),
+  :lang(glk),
+  :lang(he),
+  :lang(ku),
+  :lang(mzn),
+  :lang(nqo),
+  :lang(pnb),
+  :lang(ps),
+  :lang(sd),
+  :lang(ug),
+  :lang(ur),
+  :lang(yi)
+) {
   left: var(--ds-space-0, 0);
 }
 
-._rjxpze3t:-moz-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+._rjxpze3t:-moz-any(
+  :lang(ae),
+  :lang(ar),
+  :lang(arc),
+  :lang(bcc),
+  :lang(bqi),
+  :lang(ckb),
+  :lang(dv),
+  :lang(fa),
+  :lang(glk),
+  :lang(he),
+  :lang(ku),
+  :lang(mzn),
+  :lang(nqo),
+  :lang(pnb),
+  :lang(ps),
+  :lang(sd),
+  :lang(ug),
+  :lang(ur),
+  :lang(yi)
+) {
   left: var(--ds-space-0, 0);
 }
 
-._rjxpze3t:is(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+._rjxpze3t:is(
+  :lang(ae),
+  :lang(ar),
+  :lang(arc),
+  :lang(bcc),
+  :lang(bqi),
+  :lang(ckb),
+  :lang(dv),
+  :lang(fa),
+  :lang(glk),
+  :lang(he),
+  :lang(ku),
+  :lang(mzn),
+  :lang(nqo),
+  :lang(pnb),
+  :lang(ps),
+  :lang(sd),
+  :lang(ug),
+  :lang(ur),
+  :lang(yi)
+) {
   left: var(--ds-space-0, 0);
 }
 
@@ -1969,7 +2657,10 @@ button {
 }
 
 ._1ggl5xtf:active {
-  transition: var(--ds-button-pressed, background-color border-color .15s cubic-bezier(.4, 1, .6, 1));
+  transition: var(
+    --ds-button-pressed,
+    background-color border-color 0.15s cubic-bezier(0.4, 1, 0.6, 1)
+  );
 }
 
 ._1di613a9:active {
@@ -2310,7 +3001,10 @@ button {
 }
 
 ._bfhk19yr {
-  background-color: var(--ds-background-accent-orange-subtlest-hovered, #fce4a6);
+  background-color: var(
+    --ds-background-accent-orange-subtlest-hovered,
+    #fce4a6
+  );
 }
 
 ._bfhk19zu {
@@ -2330,7 +3024,10 @@ button {
 }
 
 ._bfhk1axx {
-  background-color: var(--ds-background-accent-magenta-subtler-hovered, #fcb6e1);
+  background-color: var(
+    --ds-background-accent-magenta-subtler-hovered,
+    #fcb6e1
+  );
 }
 
 ._bfhk1bhr {
@@ -2346,7 +3043,10 @@ button {
 }
 
 ._bfhk1ckf {
-  background-color: var(--ds-background-accent-magenta-subtlest-pressed, #fcb6e1);
+  background-color: var(
+    --ds-background-accent-magenta-subtlest-pressed,
+    #fcb6e1
+  );
 }
 
 ._bfhk1cl6 {
@@ -2450,7 +3150,10 @@ button {
 }
 
 ._bfhk1jbm {
-  background-color: var(--ds-background-accent-purple-subtlest-pressed, #e3bdfa);
+  background-color: var(
+    --ds-background-accent-purple-subtlest-pressed,
+    #e3bdfa
+  );
 }
 
 ._bfhk1jx0 {
@@ -2478,7 +3181,10 @@ button {
 }
 
 ._bfhk1o1l {
-  background-color: var(--ds-background-accent-yellow-subtlest-pressed, #efdd4e);
+  background-color: var(
+    --ds-background-accent-yellow-subtlest-pressed,
+    #efdd4e
+  );
 }
 
 ._bfhk1o4i {
@@ -2602,7 +3308,10 @@ button {
 }
 
 ._bfhk42ri {
-  background-color: var(--ds-background-accent-magenta-subtler-pressed, #f797d2);
+  background-color: var(
+    --ds-background-accent-magenta-subtler-pressed,
+    #f797d2
+  );
 }
 
 ._bfhk4m4m {
@@ -2674,7 +3383,10 @@ button {
 }
 
 ._bfhkaetg {
-  background-color: var(--ds-background-accent-yellow-subtlest-hovered, #f5e989);
+  background-color: var(
+    --ds-background-accent-yellow-subtlest-hovered,
+    #f5e989
+  );
 }
 
 ._bfhkaffd {
@@ -2730,7 +3442,10 @@ button {
 }
 
 ._bfhkf90x {
-  background-color: var(--ds-background-accent-orange-subtlest-pressed, #fbd779);
+  background-color: var(
+    --ds-background-accent-orange-subtlest-pressed,
+    #fbd779
+  );
 }
 
 ._bfhkfcek {
@@ -2782,7 +3497,10 @@ button {
 }
 
 ._bfhkkca2 {
-  background-color: var(--ds-background-accent-purple-subtlest-hovered, #eed7fc);
+  background-color: var(
+    --ds-background-accent-purple-subtlest-hovered,
+    #eed7fc
+  );
 }
 
 ._bfhkkcmj {
@@ -2874,7 +3592,10 @@ button {
 }
 
 ._bfhkr3zd {
-  background-color: var(--ds-background-accent-magenta-subtlest-hovered, #fdd0ec);
+  background-color: var(
+    --ds-background-accent-magenta-subtlest-hovered,
+    #fdd0ec
+  );
 }
 
 ._bfhkrprw {
@@ -3255,7 +3976,7 @@ button {
 }
 
 ._4cvr1h6o {
-  align-items:  center;
+  align-items: center;
 }
 
 ._4cvr1q9y {
@@ -3263,11 +3984,11 @@ button {
 }
 
 ._4cvrh9n0 {
-  align-items:  end;
+  align-items: end;
 }
 
 ._4cvrv2br {
-  align-items:  start;
+  align-items: start;
 }
 
 ._gy1p12x7 {
@@ -3437,7 +4158,7 @@ button {
 }
 
 ._4cvr1h6o {
-  align-items:  center;
+  align-items: center;
 }
 
 ._4cvr1q9y {
@@ -3445,11 +4166,11 @@ button {
 }
 
 ._4cvrh9n0 {
-  align-items:  end;
+  align-items: end;
 }
 
 ._4cvrv2br {
-  align-items:  start;
+  align-items: start;
 }
 
 ._ae4v1b1v {
@@ -3461,7 +4182,7 @@ button {
 }
 
 ._ae4v1h6o {
-  align-content:  center;
+  align-content: center;
 }
 
 ._ae4v1yb4 {
@@ -3469,7 +4190,7 @@ button {
 }
 
 ._ae4vh9n0 {
-  align-content:  end;
+  align-content: end;
 }
 
 ._ae4vitcz {
@@ -3477,7 +4198,7 @@ button {
 }
 
 ._ae4vv2br {
-  align-content:  start;
+  align-content: start;
 }
 
 ._gy1p12x7 {
@@ -3566,19 +4287,19 @@ button {
 }
 
 ._195g4pxn {
-  margin-inline: var(--ds-space-negative-025, -.125rem);
+  margin-inline: var(--ds-space-negative-025, -0.125rem);
 }
 
 ._195ggp71 {
-  margin-inline: var(--ds-space-negative-050, -.25rem);
+  margin-inline: var(--ds-space-negative-050, -0.25rem);
 }
 
 ._195gkqjj {
-  margin-inline: var(--ds-space-negative-150, -.75rem);
+  margin-inline: var(--ds-space-negative-150, -0.75rem);
 }
 
 ._195gtdkl {
-  margin-inline: var(--ds-space-negative-100, -.5rem);
+  margin-inline: var(--ds-space-negative-100, -0.5rem);
 }
 
 ._1mou1e8l {
@@ -3586,19 +4307,19 @@ button {
 }
 
 ._1mou4pxn {
-  margin-block: var(--ds-space-negative-025, -.125rem);
+  margin-block: var(--ds-space-negative-025, -0.125rem);
 }
 
 ._1mougp71 {
-  margin-block: var(--ds-space-negative-050, -.25rem);
+  margin-block: var(--ds-space-negative-050, -0.25rem);
 }
 
 ._1moukqjj {
-  margin-block: var(--ds-space-negative-150, -.75rem);
+  margin-block: var(--ds-space-negative-150, -0.75rem);
 }
 
 ._1moutdkl {
-  margin-block: var(--ds-space-negative-100, -.5rem);
+  margin-block: var(--ds-space-negative-100, -0.5rem);
 }
 
 ._vchhusvi {
@@ -3607,15 +4328,48 @@ button {
 
 /* ../../node_modules/@atlaskit/primitives/dist/esm/compiled/components/text.compiled.css */
 ._11c81d4k {
-  font: var(--ds-font-body-large, normal 400 1pc / 24px "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif);
+  font: var(
+    --ds-font-body-large,
+    normal 400 1pc /
+    24px "Atlassian Sans",
+    ui-sans-serif,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Ubuntu,
+    "Helvetica Neue",
+    sans-serif
+  );
 }
 
 ._11c8fhey {
-  font: var(--ds-font-body, normal 400 14px / 20px "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif);
+  font: var(
+    --ds-font-body,
+    normal 400 14px /
+    20px "Atlassian Sans",
+    ui-sans-serif,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Ubuntu,
+    "Helvetica Neue",
+    sans-serif
+  );
 }
 
 ._11c8wadc {
-  font: var(--ds-font-body-small, normal 400 9pt / 1pc "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif);
+  font: var(
+    --ds-font-body-small,
+    normal 400 9pt /
+    1pc "Atlassian Sans",
+    ui-sans-serif,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Ubuntu,
+    "Helvetica Neue",
+    sans-serif
+  );
 }
 
 ._18m915vq {
@@ -3893,7 +4647,8 @@ button {
   outline-style: solid;
 }
 
-@media screen and (-ms-high-contrast: active), screen and (forced-colors: active) {
+@media screen and (-ms-high-contrast: active),
+  screen and (forced-colors: active) {
   ._1cvmnqa1:focus-visible {
     outline-style: solid;
   }
@@ -4056,7 +4811,7 @@ button {
 
 /* ../../node_modules/@atlaskit/button/dist/esm/new-button/variants/shared/content.compiled.css */
 ._v564g17y {
-  transition: opacity .3s;
+  transition: opacity 0.3s;
 }
 
 ._16jlidpf {
@@ -4092,7 +4847,7 @@ button {
 }
 
 ._1wpz1h6o {
-  align-self:  center;
+  align-self: center;
 }
 
 ._1wybidpf {
@@ -4119,31 +4874,108 @@ button {
 
 /* ../../node_modules/@atlaskit/heading/dist/esm/heading.compiled.css */
 ._fqox10sd._fqox10sd {
-  font: var(--ds-font-heading-large, normal 653 24px / 28px "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif);
+  font: var(
+    --ds-font-heading-large,
+    normal 653 24px /
+    28px "Atlassian Sans",
+    ui-sans-serif,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Ubuntu,
+    "Helvetica Neue",
+    sans-serif
+  );
 }
 
 ._fqox12ln._fqox12ln {
-  font: var(--ds-font-heading-xlarge, normal 653 28px / 2pc "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif);
+  font: var(
+    --ds-font-heading-xlarge,
+    normal 653 28px /
+    2pc "Atlassian Sans",
+    ui-sans-serif,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Ubuntu,
+    "Helvetica Neue",
+    sans-serif
+  );
 }
 
 ._fqox1af2._fqox1af2 {
-  font: var(--ds-font-heading-medium, normal 653 20px / 24px "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif);
+  font: var(
+    --ds-font-heading-medium,
+    normal 653 20px /
+    24px "Atlassian Sans",
+    ui-sans-serif,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Ubuntu,
+    "Helvetica Neue",
+    sans-serif
+  );
 }
 
 ._fqox1e3o._fqox1e3o {
-  font: var(--ds-font-heading-small, normal 653 1pc / 20px "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif);
+  font: var(
+    --ds-font-heading-small,
+    normal 653 1pc /
+    20px "Atlassian Sans",
+    ui-sans-serif,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Ubuntu,
+    "Helvetica Neue",
+    sans-serif
+  );
 }
 
 ._fqox1iff._fqox1iff {
-  font: var(--ds-font-heading-xxlarge, normal 653 2pc / 36px "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif);
+  font: var(
+    --ds-font-heading-xxlarge,
+    normal 653 2pc /
+    36px "Atlassian Sans",
+    ui-sans-serif,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Ubuntu,
+    "Helvetica Neue",
+    sans-serif
+  );
 }
 
 ._fqox1qyo._fqox1qyo {
-  font: var(--ds-font-heading-xsmall, normal 653 14px / 20px "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif);
+  font: var(
+    --ds-font-heading-xsmall,
+    normal 653 14px /
+    20px "Atlassian Sans",
+    ui-sans-serif,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Ubuntu,
+    "Helvetica Neue",
+    sans-serif
+  );
 }
 
 ._fqoxi4vh._fqoxi4vh {
-  font: var(--ds-font-heading-xxsmall, normal 653 9pt / 1pc "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif);
+  font: var(
+    --ds-font-heading-xxsmall,
+    normal 653 9pt /
+    1pc "Atlassian Sans",
+    ui-sans-serif,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Ubuntu,
+    "Helvetica Neue",
+    sans-serif
+  );
 }
 
 ._dxsyidpf._dxsyidpf {
@@ -4268,7 +5100,18 @@ button {
 
 /* ../../node_modules/@atlaskit/section-message/dist/esm/section-message-action.compiled.css */
 ._11c8fhey {
-  font: var(--ds-font-body, normal 400 14px / 20px "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif);
+  font: var(
+    --ds-font-body,
+    normal 400 14px /
+    20px "Atlassian Sans",
+    ui-sans-serif,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Ubuntu,
+    "Helvetica Neue",
+    sans-serif
+  );
 }
 
 ._2rkolb4i {
@@ -4333,15 +5176,19 @@ button {
 }
 
 ._v564hxmd {
-  transition: var(--ds-listitem-hovered, background-color border-color color text-decoration-color 50ms cubic-bezier(.4, 1, .6, 1));
+  transition: var(
+    --ds-listitem-hovered,
+    background-color border-color color text-decoration-color 50ms
+      cubic-bezier(0.4, 1, 0.6, 1)
+  );
 }
 
 ._152ttb3r {
-  top: .11em;
+  top: 0.11em;
 }
 
 ._1bsbgm0b {
-  width: .9em;
+  width: 0.9em;
 }
 
 ._1e0c1nu9 {
@@ -4365,11 +5212,11 @@ button {
 }
 
 ._4t3igm0b {
-  height: .9em;
+  height: 0.9em;
 }
 
 ._ahbqzjw7 {
-  margin-inline-start: .3em;
+  margin-inline-start: 0.3em;
 }
 
 ._ajmmnqa1 {
@@ -4377,7 +5224,17 @@ button {
 }
 
 ._ect4ttxp {
-  font-family: var(--ds-font-family-body, "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif);
+  font-family: var(
+    --ds-font-family-body,
+    "Atlassian Sans",
+    ui-sans-serif,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Ubuntu,
+    "Helvetica Neue",
+    sans-serif
+  );
 }
 
 ._kqswh2mm {
@@ -4449,7 +5306,11 @@ button {
 }
 
 ._o7kshxmd:hover {
-  transition: var(--ds-listitem-hovered, background-color border-color color text-decoration-color 50ms cubic-bezier(.4, 1, .6, 1));
+  transition: var(
+    --ds-listitem-hovered,
+    background-color border-color color text-decoration-color 50ms
+      cubic-bezier(0.4, 1, 0.6, 1)
+  );
 }
 
 ._1bnx8stv:hover {
@@ -4489,7 +5350,11 @@ button {
 }
 
 ._1ggl87vo:active {
-  transition: var(--ds-listitem-pressed, background-color border-color color text-decoration-color .1s cubic-bezier(.4, 1, .6, 1));
+  transition: var(
+    --ds-listitem-pressed,
+    background-color border-color color text-decoration-color 0.1s
+      cubic-bezier(0.4, 1, 0.6, 1)
+  );
 }
 
 ._1iohnqa1:active {
@@ -4534,7 +5399,7 @@ button {
 }
 
 ._y44v1ozz {
-  animation: .86s infinite kztt5h0;
+  animation: 0.86s infinite kztt5h0;
 }
 
 ._134c892t {
@@ -4550,7 +5415,7 @@ button {
 }
 
 ._1pgl2qsq {
-  animation-timing-function: cubic-bezier(.4, .15, .6, .85);
+  animation-timing-function: cubic-bezier(0.4, 0.15, 0.6, 0.85);
 }
 
 ._1snbbs82 {
