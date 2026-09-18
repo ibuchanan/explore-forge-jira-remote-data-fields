@@ -1,5 +1,6 @@
 {
   "version": "0.2",
   "language": "en",
-  "words": []
+  "words": ["ibuchanan", "secretspec", "shellcheck", "shfmt"],
+  "ignorePaths": ["node_modules/**", "vendor/**"]
 }

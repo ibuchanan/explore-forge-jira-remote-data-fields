@@ -1,4 +1,7 @@
 {
+  // node_modules is vendored/generated; vendor/ is a separate, gitignored
+  // nested project with its own linting.
+  "ignores": ["**/node_modules/**", "vendor/**"],
   // MD013 (line-length) can't reasonably apply to Markdown tables or code
   // blocks: wrapping a table cell or a shell command at 80 columns breaks
   // the content it's meant to check. Prose lines are still checked.
