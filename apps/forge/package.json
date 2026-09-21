@@ -2,7 +2,7 @@
   "name": "jira-remote-data-fields-forge-app",
   "version": "0.0.0",
   "private": true,
-  "description": "a Jira text-properties UI backed by a Forge Remote",
+  "description": "a Jira remote data fields UI backed by a Forge Remote",
   "license": "Apache-2.0",
   "scripts": {
     "build": "rm -rf resources && bun build src/index.html --target browser --outdir resources",

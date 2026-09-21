@@ -17,7 +17,7 @@ returns and saves the confirmed answers as a Jira issue entity property.
 - The Forge app (`apps/forge`) contributes a `jira:issueContext` panel
   that calls the remote through `invokeRemote`, one step at a time, and
   saves the finished answers to the issue via a resolver
-  (`saveTextProperties`).
+  (`saveRemoteDataFields`).
 - The remote (`apps/remote`) is a Fastify service whose routes and
   request validation come from
   [`apps/remote/openapi.yaml`](apps/remote/openapi.yaml) via
@@ -27,7 +27,7 @@ returns and saves the confirmed answers as a Jira issue entity property.
   holds the demo field definitions and selectable values — edit it to
   change the form.
 - Confirmed answers are saved to the issue entity property
-  `text-properties-form-state` and require the `write:jira-work` scope.
+  `remote-data-fields-form-state` and require the `write:jira-work` scope.
 
 ## Prerequisites
 

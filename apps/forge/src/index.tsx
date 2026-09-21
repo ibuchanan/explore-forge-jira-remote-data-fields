@@ -116,7 +116,7 @@ function App() {
           ),
         );
       }
-      await invoke("saveTextProperties", { state });
+      await invoke("saveRemoteDataFields", { state });
       setSaved(true);
     } catch (cause) {
       setError(

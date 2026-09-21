@@ -94,10 +94,10 @@ const maxOptions = 25;
 function problem(
   detail: string,
   fieldKey?: string,
-  type = "urn:example:text-properties:invalid-form-state",
+  type = "urn:example:remote-data-fields:invalid-form-state",
 ): FormStateProblem {
   return {
-    type: "urn:example:text-properties:invalid-form-state",
+    type: "urn:example:remote-data-fields:invalid-form-state",
     title: "Invalid form state",
     status: 422,
     detail,
@@ -134,7 +134,7 @@ export function evaluateFormState(
         return problem(
           `Answer ${field.label} before ${laterAnswer.label}.`,
           field.key,
-          "urn:example:text-properties:out-of-order-answer",
+          "urn:example:remote-data-fields:out-of-order-answer",
         );
       }
       return { complete: false, field, state };
@@ -179,7 +179,7 @@ export function searchOptions(
     return problem(
       `Enter at least ${field.minimumQueryLength} character${field.minimumQueryLength === 1 ? "" : "s"} to search ${field.label}.`,
       fieldKey,
-      "urn:example:text-properties:query-too-short",
+      "urn:example:remote-data-fields:query-too-short",
     );
   }
 

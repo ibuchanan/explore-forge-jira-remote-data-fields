@@ -56,7 +56,7 @@ export function createServer(auth: ForgeRemoteAuthHookOptions = {}) {
             .code(404)
             .type("application/problem+json")
             .send({
-              type: "urn:example:text-properties:unknown-field",
+              type: "urn:example:remote-data-fields:unknown-field",
               title: "Unknown field",
               status: 404,
               detail: `Unknown field: ${request.params.fieldKey}.`,
@@ -77,14 +77,14 @@ export function createServer(auth: ForgeRemoteAuthHookOptions = {}) {
             .code(422)
             .type("application/problem+json")
             .send({
-              type: "urn:example:text-properties:incomplete-form",
+              type: "urn:example:remote-data-fields:incomplete-form",
               title: "Incomplete form state",
               status: 422,
               detail: `Answer ${result.field.label} before validating the form.`,
               firstInvalidFieldKey: result.field.key,
               errors: [
                 {
-                  type: "urn:example:text-properties:incomplete-form",
+                  type: "urn:example:remote-data-fields:incomplete-form",
                   fieldKey: result.field.key,
                   detail: `Answer ${result.field.label} before validating the form.`,
                 },

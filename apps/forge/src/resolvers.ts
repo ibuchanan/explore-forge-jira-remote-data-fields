@@ -1,14 +1,14 @@
 import api, { route } from "@forge/api";
 import Resolver from "@forge/resolver";
 
-const ENTITY_PROPERTY_KEY = "text-properties-form-state";
+const ENTITY_PROPERTY_KEY = "remote-data-fields-form-state";
 
-type SaveTextPropertiesPayload = { state: Record<string, string | null> };
+type SaveRemoteDataFieldsPayload = { state: Record<string, string | null> };
 
 const resolver = new Resolver();
 
-resolver.define<SaveTextPropertiesPayload, void>(
-  "saveTextProperties",
+resolver.define<SaveRemoteDataFieldsPayload, void>(
+  "saveRemoteDataFields",
   async ({ payload, context }) => {
     const issueId = (context.extension as { issue: { id: string } }).issue.id;
     const response = await api

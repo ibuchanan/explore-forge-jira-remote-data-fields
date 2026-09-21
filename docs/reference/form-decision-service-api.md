@@ -80,5 +80,5 @@ Each `FormStateError` has `type` (a stable, machine-readable URI),
 
 This API does not save anything. The Forge app persists the confirmed
 `state` separately, as the issue entity property
-`text-properties-form-state`, via the `write:jira-work` scope declared
+`remote-data-fields-form-state`, via the `write:jira-work` scope declared
 in [`apps/forge/manifest.yml`](../../apps/forge/manifest.yml).

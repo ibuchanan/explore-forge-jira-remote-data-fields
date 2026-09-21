@@ -2,7 +2,7 @@
   "name": "jira-remote-data-fields-backend",
   "version": "0.0.0",
   "private": true,
-  "description": "a Fastify stub for the Jira text-properties Forge Remote",
+  "description": "a Fastify stub for the Jira remote data fields Forge Remote",
   "license": "Apache-2.0",
   "type": "module",
   "scripts": {

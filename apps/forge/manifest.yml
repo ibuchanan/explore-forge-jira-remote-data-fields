@@ -8,21 +8,29 @@ environment:
 modules:
   # See: https://developer.atlassian.com/platform/forge/manifest-reference/endpoint
   endpoint:
-    - key: text-properties-api
-      remote: text-properties-remote
+    - key: remote-data-fields-api
+      remote: remote-data-fields-remote
   function:
-    - key: save-text-properties
+    - key: save-remote-data-fields
       handler: resolvers.handler
   jira:issueContext:
-    - key: text-properties
-      resource: text-properties-ui
+    - key: remote-data-fields
+      resource: remote-data-fields-ui
       resolver:
-        endpoint: text-properties-api
+        endpoint: remote-data-fields-api
       title: Remote data fields
       label: Remote data fields
+  jiraServiceManagement:portalRequestDetailPanel:
+    - key: remote-data-fields-portal
+      resource: remote-data-fields-ui
+      resolver:
+        endpoint: remote-data-fields-api
+      title: Remote data fields
+      unlicensedAccess:
+        - customer
 # See: https://developer.atlassian.com/platform/forge/manifest-reference/remotes
 remotes:
-  - key: text-properties-remote
+  - key: remote-data-fields-remote
     baseUrl: ${REMOTE_BASE_URL}
     operations:
       - compute
@@ -33,5 +41,5 @@ permissions:
     styles:
       - unsafe-inline
 resources:
-  - key: text-properties-ui
+  - key: remote-data-fields-ui
     path: resources

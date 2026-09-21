@@ -24,7 +24,7 @@ Everything in the [README's prerequisites](README.md#prerequisites), plus:
 - `apps/forge` — the Forge app: a `jira:issueContext` Custom UI panel
   (`src/index.tsx`) built with Atlaskit and `@forge/bridge`, plus a
   resolver (`src/resolvers.ts`) that saves confirmed form state to the
-  issue entity property `text-properties-form-state`.
+  issue entity property `remote-data-fields-form-state`.
 - `apps/remote` — the Forge Remote: a Fastify server (`src/server.ts`)
   that implements the OpenAPI contract in `openapi.yaml` using
   `fastify-openapi-glue`, backed by an in-memory sample form

@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: Text properties API
+  title: Remote data fields API
   version: 0.1.0
   description: >-
     A stateless, read-only decision service for one ordered form. Clients hold
