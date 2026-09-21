@@ -50,6 +50,17 @@ function problemMessage(body: unknown, fallback: string): string {
   return fallback;
 }
 
+function isFormState(value: unknown): value is FormState {
+  return (
+    !!value &&
+    typeof value === "object" &&
+    !Array.isArray(value) &&
+    Object.values(value).every(
+      (answer) => answer === null || typeof answer === "string",
+    )
+  );
+}
+
 async function callRemote<T>(
   path: string,
   body: object,
@@ -205,8 +216,8 @@ function App() {
     return pinned;
   }
 
-  // Load the first field once on mount; `evaluate` is recreated every render
-  // but the initial-load call intentionally never needs to re-run.
+  // Load the initial form state once on mount; `evaluate` is recreated every
+  // render but the initial-load calls intentionally never need to re-run.
   // biome-ignore lint/correctness/useExhaustiveDependencies: mount-once effect
   useEffect(() => {
     void view
@@ -220,7 +231,19 @@ function App() {
       .catch((cause) =>
         console.error("Failed to read extension context", cause),
       );
-    void evaluate({});
+    void invoke<FormState | null>("getRemoteDataFields")
+      .then((response) => {
+        const persistedState = isFormState(response)
+          ? response
+          : response?.body;
+        return evaluate(persistedState ?? {});
+      })
+      .catch((cause) => {
+        console.error("Failed to load saved form state", cause);
+        setError(
+          "The saved form state could not be loaded. Refresh to try again.",
+        );
+      });
   }, []);
 
   const answers = Object.entries(state);

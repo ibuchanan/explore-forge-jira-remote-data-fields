@@ -10,7 +10,8 @@ test "$(yq -r '.modules."jiraServiceManagement:portalRequestCreatePropertyPanel"
 test "$(yq -r '.modules."jiraServiceManagement:portalRequestDetailPanel"[0].resolver.endpoint' "$manifest")" = remote-data-fields-api
 test "$(yq -r '.modules."jiraServiceManagement:portalRequestDetailPanel"[0].unlicensedAccess[0]' "$manifest")" = customer
 test "$(yq -r '.modules.endpoint[0] | has("route")' "$manifest")" = false
-test "$(yq -r '.permissions.scopes | length' "$manifest")" = 1
+test "$(yq -r '.permissions.scopes | length' "$manifest")" = 2
+test "$(yq -r '.permissions.scopes[]' "$manifest" | grep -cx 'read:jira-work')" = 1
 test "$(yq -r '.resources[0].path' "$manifest")" = resources
 test -f "$root/apps/forge/src/index.html"
 grep -q 'src="./index.tsx"' "$root/apps/forge/src/index.html"
