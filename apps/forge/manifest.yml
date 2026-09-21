@@ -9,7 +9,7 @@ modules:
   # See: https://developer.atlassian.com/platform/forge/manifest-reference/endpoint
   endpoint:
     - key: remote-data-fields-api
-      remote: remote-data-fields-remote
+      remote: remote-data-fields
   function:
     - key: save-remote-data-fields
       handler: resolvers.handler
@@ -20,6 +20,13 @@ modules:
         endpoint: remote-data-fields-api
       title: Remote data fields
       label: Remote data fields
+  jiraServiceManagement:portalRequestCreatePropertyPanel:
+    - key: remote-data-fields-portal-create
+      resource: remote-data-fields-ui
+      resolver:
+        endpoint: remote-data-fields-api
+      unlicensedAccess:
+        - customer
   jiraServiceManagement:portalRequestDetailPanel:
     - key: remote-data-fields-portal
       resource: remote-data-fields-ui
@@ -30,7 +37,7 @@ modules:
         - customer
 # See: https://developer.atlassian.com/platform/forge/manifest-reference/remotes
 remotes:
-  - key: remote-data-fields-remote
+  - key: remote-data-fields
     baseUrl: ${REMOTE_BASE_URL}
     operations:
       - compute

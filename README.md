@@ -14,9 +14,10 @@ returns and saves the confirmed answers as a Jira issue entity property.
 
 ## How it works
 
-- The Forge app (`apps/forge`) contributes a `jira:issueContext` panel
-  that calls the remote through `invokeRemote`, one step at a time, and
-  saves the finished answers to the issue via a resolver
+- The Forge app (`apps/forge`) contributes a `jira:issueContext` panel and
+  JSM portal panels. They call the remote through `invokeRemote`, one step at
+  a time. The request-create panel submits completed answers as request
+  properties; existing-issue panels save them through a resolver
   (`saveRemoteDataFields`).
 - The remote (`apps/remote`) is a Fastify service whose routes and
   request validation come from

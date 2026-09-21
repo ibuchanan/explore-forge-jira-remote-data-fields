@@ -28,6 +28,11 @@ type ProblemDetails = { detail?: string; title?: string };
 type FieldOption = { label: string; value: string };
 
 const NULL_OPTION_VALUE = "__null__";
+const PORTAL_REQUEST_CREATE_PROPERTY_PANEL =
+  "jiraServiceManagement:portalRequestCreatePropertyPanel";
+const PORTAL_REQUEST_CREATE_PROPERTY_KEY = "remote-data-fields-form-state";
+
+type ExtensionContext = { extension?: { type?: string } };
 
 function getRoot(): HTMLElement {
   const root = document.querySelector<HTMLElement>("#app");
@@ -64,11 +69,27 @@ async function callRemote<T>(
   }
 }
 
+async function submitPortalRequestCreateState(
+  state: FormState,
+  isValid: boolean,
+): Promise<boolean> {
+  const context = (await view.getContext()) as ExtensionContext;
+  if (context.extension?.type !== PORTAL_REQUEST_CREATE_PROPERTY_PANEL) {
+    return false;
+  }
+  await view.submit({
+    fields: [{ key: PORTAL_REQUEST_CREATE_PROPERTY_KEY, value: state }],
+    isValid,
+  });
+  return true;
+}
+
 function App() {
   const [state, setState] = useState<FormState>({});
   const [step, setStep] = useState<FormStep>();
   const [loading, setLoading] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [isPortalRequestCreate, setIsPortalRequestCreate] = useState(false);
   const [error, setError] = useState<string>();
   const searchSequence = useRef(0);
 
@@ -90,6 +111,11 @@ function App() {
       }
       setState(response.body.state);
       setStep(response.body);
+      const submittedToPortal = await submitPortalRequestCreateState(
+        response.body.state,
+        response.body.complete,
+      );
+      if (submittedToPortal && response.body.complete) setSaved(true);
     } catch (cause) {
       setError(
         cause instanceof Error
@@ -115,6 +141,10 @@ function App() {
             "The completed form is no longer valid.",
           ),
         );
+      }
+      if (await submitPortalRequestCreateState(state, true)) {
+        setSaved(true);
+        return;
       }
       await invoke("saveRemoteDataFields", { state });
       setSaved(true);
@@ -179,6 +209,17 @@ function App() {
   // but the initial-load call intentionally never needs to re-run.
   // biome-ignore lint/correctness/useExhaustiveDependencies: mount-once effect
   useEffect(() => {
+    void view
+      .getContext()
+      .then((context) =>
+        setIsPortalRequestCreate(
+          (context as ExtensionContext).extension?.type ===
+            PORTAL_REQUEST_CREATE_PROPERTY_PANEL,
+        ),
+      )
+      .catch((cause) =>
+        console.error("Failed to read extension context", cause),
+      );
     void evaluate({});
   }, []);
 
@@ -212,20 +253,24 @@ function App() {
         <Stack space="space.100">
           <SectionMessage appearance={saved ? "success" : "information"}>
             <Text>
-              {saved
-                ? "Saved to this issue."
-                : "All answers are complete. Save to store them on this issue."}
+              {isPortalRequestCreate
+                ? "All answers are complete. They will be stored when you create this request."
+                : saved
+                  ? "Saved to this issue."
+                  : "All answers are complete. Save to store them on this issue."}
             </Text>
           </SectionMessage>
-          <Box>
-            <Button
-              appearance="primary"
-              isDisabled={loading || saved}
-              onClick={() => void save()}
-            >
-              {loading ? "Saving…" : saved ? "Saved" : "Save"}
-            </Button>
-          </Box>
+          {!isPortalRequestCreate && (
+            <Box>
+              <Button
+                appearance="primary"
+                isDisabled={loading || saved}
+                onClick={() => void save()}
+              >
+                {loading ? "Saving…" : saved ? "Saved" : "Save"}
+              </Button>
+            </Box>
+          )}
         </Stack>
       ) : (
         <Stack space="space.100">

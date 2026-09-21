@@ -5,6 +5,8 @@ root=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
 manifest="$root/apps/forge/manifest.yml"
 
 test "$(yq -r '.modules."jira:issueContext"[0].resolver.endpoint' "$manifest")" = remote-data-fields-api
+test "$(yq -r '.modules."jiraServiceManagement:portalRequestCreatePropertyPanel"[0].resolver.endpoint' "$manifest")" = remote-data-fields-api
+test "$(yq -r '.modules."jiraServiceManagement:portalRequestCreatePropertyPanel"[0].unlicensedAccess[0]' "$manifest")" = customer
 test "$(yq -r '.modules."jiraServiceManagement:portalRequestDetailPanel"[0].resolver.endpoint' "$manifest")" = remote-data-fields-api
 test "$(yq -r '.modules."jiraServiceManagement:portalRequestDetailPanel"[0].unlicensedAccess[0]' "$manifest")" = customer
 test "$(yq -r '.modules.endpoint[0] | has("route")' "$manifest")" = false
