@@ -2,8 +2,10 @@ import { existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import fastify, { type FastifyReply } from "fastify";
 import openapiGlue from "fastify-openapi-glue";
-import type { ForgeRemoteAuthHookOptions } from "./forge-remote-auth.js";
-import { forgeRemoteAuthHook } from "./forge-remote-auth.js";
+import {
+  forgeRemoteAuthHook,
+  type ForgeRemoteAuthHookOptions,
+} from "@forge-ahead/remote/fastify";
 import {
   evaluateFormState,
   type FormState,
