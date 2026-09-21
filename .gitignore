@@ -26,6 +26,9 @@
 Icon
 
 
+# Forge Custom UI build output
+/apps/forge/resources/
+
 # Thumbnails
 ._*
 
