@@ -9,7 +9,7 @@ modules:
   # See: https://developer.atlassian.com/platform/forge/manifest-reference/endpoint
   endpoint:
     - key: remote-data-fields-api
-      remote: remote-data-fields
+      remote: data-fields-remote
   function:
     - key: save-remote-data-fields
       handler: resolvers.handler
@@ -37,7 +37,7 @@ modules:
         - customer
 # See: https://developer.atlassian.com/platform/forge/manifest-reference/remotes
 remotes:
-  - key: remote-data-fields
+  - key: data-fields-remote
     baseUrl: ${REMOTE_BASE_URL}
     operations:
       - compute
