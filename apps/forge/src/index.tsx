@@ -98,7 +98,9 @@ async function submitPortalRequestCreateState(
 function App() {
   const [state, setState] = useState<FormState>({});
   const [step, setStep] = useState<FormStep>();
-  const [loading, setLoading] = useState(false);
+  // Start in the loading state: the mount effect fetches saved state before
+  // `evaluate` runs, and `step` is undefined until then.
+  const [loading, setLoading] = useState(true);
   const [saved, setSaved] = useState(false);
   const [isPortalRequestCreate, setIsPortalRequestCreate] = useState(false);
   const [error, setError] = useState<string>();
@@ -240,6 +242,7 @@ function App() {
       })
       .catch((cause) => {
         console.error("Failed to load saved form state", cause);
+        setLoading(false);
         setError(
           "The saved form state could not be loaded. Refresh to try again.",
         );
