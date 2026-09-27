@@ -1,6 +1,10 @@
 import { describe, expect, test } from "bun:test";
 
-import { hostSubmission, initialState } from "../src/host";
+import { hostSubmission, initialState, isReadOnly } from "../src/host";
+
+const portalRequestView = {
+  type: "jiraServiceManagement:portalRequestDetail",
+};
 
 const issueCreateField = {
   type: "jira:customField",
@@ -44,8 +48,8 @@ describe("hostSubmission", () => {
   test.each([
     ["the issue context panel", { type: "jira:issueContext" }],
     [
-      "the portal request detail panel",
-      { type: "jiraServiceManagement:portalRequestDetailPanel" },
+      "the portal request view",
+      { type: "jiraServiceManagement:portalRequestDetail" },
     ],
     [
       "the custom field outside the create dialog",
@@ -73,7 +77,45 @@ describe("initialState", () => {
     },
   );
 
+  test("shows the portal request view the answers captured at creation", () => {
+    expect(
+      initialState({
+        ...portalRequestView,
+        request: {
+          property: { "remote-data-fields-form-state": { team: "Jira" } },
+        },
+      }),
+    ).toEqual({ team: "Jira" });
+  });
+
+  test.each([
+    ["has no request property", {}],
+    [
+      "has invalid form state",
+      { property: { "remote-data-fields-form-state": { team: 42 } } },
+    ],
+  ])("shows the portal request view no answers when it %s", (_, request) => {
+    expect(initialState({ ...portalRequestView, request })).toEqual({});
+  });
+
   test("leaves other surfaces to load their saved state", () => {
     expect(initialState({ type: "jira:issueContext" })).toBeUndefined();
+  });
+});
+
+describe("isReadOnly", () => {
+  test("keeps the portal request view read-only", () => {
+    expect(isReadOnly(portalRequestView)).toBe(true);
+  });
+
+  test.each([
+    ["the issue context panel", { type: "jira:issueContext" }],
+    ["the create dialog's custom field", issueCreateField],
+    [
+      "the portal request-create panel",
+      { type: "jiraServiceManagement:portalRequestCreatePropertyPanel" },
+    ],
+  ])("lets %s edit answers", (_, extension) => {
+    expect(isReadOnly(extension)).toBe(false);
   });
 });

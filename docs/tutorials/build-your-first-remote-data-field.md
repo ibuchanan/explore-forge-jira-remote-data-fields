@@ -12,7 +12,7 @@ CLI, `cloudflared`, `secretspec`, and `yq`. Run that command now. If any
 CLI is missing, install it before continuing — the rest of this tutorial
 assumes all four are on `PATH`.
 
-## Step 1: Install and register
+## Step 1: Install dependencies and prepare a remote URL
 
 From the repo root, install dependencies:
 
@@ -20,27 +20,56 @@ From the repo root, install dependencies:
 npm install
 ```
 
-Register the app against a Jira Cloud site you can install into:
+Forge registration needs a public HTTPS URL for the remote. For this
+first-time bootstrap, start the remote directly in one terminal:
+
+```bash
+npm run --workspace=jira-remote-data-fields-backend start
+```
+
+In a second terminal, expose port 3000 with a Cloudflare Quick Tunnel:
+
+```bash
+cloudflared --no-autoupdate tunnel --url http://localhost:3000
+```
+
+Copy the `https://….trycloudflare.com` URL printed by `cloudflared` and
+store it for registration:
+
+```bash
+bash scripts/env-var-set.sh REMOTE_BASE_URL https://your-tunnel.trycloudflare.com
+```
+
+Keep both processes running while registering. Register the app against
+a Jira Cloud site you can install into:
 
 ```bash
 bash scripts/register.sh
 ```
 
-The first time this runs, `secretspec` will prompt you for `FORGE_SITE`
-(for example `example.atlassian.net`). Enter it, and the script records
-the resulting `FORGE_APP_ID` for you.
+The script registers the app and records the resulting `FORGE_APP_ID`.
+The temporary remote and tunnel can be stopped after registration.
+The deploy command uses the `default` secretspec profile and prompts for
+`FORGE_SITE` if it has not already been configured.
 
-## Step 2: Deploy and open the panel
+## Step 2: Deploy and install
 
-Start the remote, tunnel it, and deploy the Forge app in one step:
+Start the remote, create a fresh tunnel, and deploy the Forge app in one
+step:
 
 ```bash
 npm run forge:deploy:tunnel
 ```
 
-Leave this running — it's serving the remote through the tunnel for as
-long as it's up. In the Jira site you registered against, open any
-issue. Look for the **Remote data fields** panel.
+Leave this running while you install and test. In a second terminal,
+install the deployed app:
+
+```bash
+npm run forge:install
+```
+
+In the Jira site you registered against, open any issue. Look for the
+**Remote data fields** panel.
 
 You'll see the panel ask for an **Owning team** first. Type a few
 letters and pick one of the suggestions. Once you confirm it, the panel

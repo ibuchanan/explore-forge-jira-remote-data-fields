@@ -4,12 +4,21 @@ import Button from "@atlaskit/button";
 import { Box, Stack, Text } from "@atlaskit/primitives";
 import SectionMessage from "@atlaskit/section-message";
 import { AsyncSelect } from "@atlaskit/select";
-import { invoke, invokeRemote, view } from "@forge/bridge";
+import { invokeRemote, requestJira, view } from "@forge/bridge";
 import { useEffect, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 
-import { type FormState, isFormState } from "./form-state";
-import { type Extension, hostSubmission, initialState } from "./host";
+import {
+  FORM_STATE_PROPERTY_KEY,
+  type FormState,
+  isFormState,
+} from "./form-state";
+import {
+  type Extension,
+  hostSubmission,
+  initialState,
+  isReadOnly,
+} from "./host";
 
 type Field = {
   allowsNull: boolean;
@@ -72,6 +81,44 @@ async function getExtension(): Promise<Extension> {
   return context.extension ?? {};
 }
 
+function issuePropertyPath(extension: Extension): string {
+  const issueId = extension.issue?.id;
+  if (!issueId) {
+    throw new Error("This surface has no Jira issue to store the answers on.");
+  }
+  return `/rest/api/3/issue/${encodeURIComponent(issueId)}/properties/${FORM_STATE_PROPERTY_KEY}`;
+}
+
+/** Loads the saved form state from the issue property, as the current user. */
+async function loadSavedState(extension: Extension): Promise<FormState> {
+  const response = await requestJira(issuePropertyPath(extension));
+  if (response.status === 404) return {};
+  if (!response.ok) {
+    throw new Error(
+      `Failed to load the form state (status ${response.status}).`,
+    );
+  }
+  const { value } = (await response.json()) as { value: unknown };
+  if (!isFormState(value)) {
+    throw new Error("The saved form state has an invalid format.");
+  }
+  return value;
+}
+
+/** Saves the form state to the issue property, under Jira's permissions for the current user. */
+async function saveState(state: FormState): Promise<void> {
+  const response = await requestJira(issuePropertyPath(await getExtension()), {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(state),
+  });
+  if (!response.ok) {
+    throw new Error(
+      `Failed to save the form state (status ${response.status}).`,
+    );
+  }
+}
+
 /**
  * Hands the form state to a host that stores it on create (the portal
  * request-create panel or the create dialog's custom field). Returns `false`
@@ -96,6 +143,8 @@ function App() {
   const [saved, setSaved] = useState(false);
   // Surfaces where the host stores the form state on create, so there is no Save button.
   const [submitsOnCreate, setSubmitsOnCreate] = useState(false);
+  // Surfaces that only show the answers captured at creation.
+  const [readOnly, setReadOnly] = useState(false);
   const [error, setError] = useState<string>();
   const searchSequence = useRef(0);
 
@@ -153,7 +202,7 @@ function App() {
         setSaved(true);
         return;
       }
-      await invoke("saveRemoteDataFields", { state });
+      await saveState(state);
       setSaved(true);
     } catch (cause) {
       setError(
@@ -218,14 +267,15 @@ function App() {
   useEffect(() => {
     void getExtension()
       .then(async (extension) => {
-        setSubmitsOnCreate(hostSubmission(extension, {}, false) !== undefined);
         const hostState = initialState(extension);
-        if (hostState) return evaluate(hostState);
-        const response = await invoke<FormState | null>("getRemoteDataFields");
-        const persistedState = isFormState(response)
-          ? response
-          : response?.body;
-        return evaluate(persistedState ?? {});
+        if (isReadOnly(extension)) {
+          setReadOnly(true);
+          setState(hostState ?? {});
+          setLoading(false);
+          return;
+        }
+        setSubmitsOnCreate(hostSubmission(extension, {}, false) !== undefined);
+        return evaluate(hostState ?? (await loadSavedState(extension)));
       })
       .catch((cause) => {
         console.error("Failed to load saved form state", cause);
@@ -237,6 +287,25 @@ function App() {
   }, []);
 
   const answers = Object.entries(state);
+  const answerList = answers.length > 0 && (
+    <Box as="ol" paddingBlockStart="space.0" paddingInlineStart="space.300">
+      {answers.map(([key, value]) => (
+        <li key={key}>
+          <Text>
+            {key}: {value ?? "No value"}
+          </Text>
+        </li>
+      ))}
+    </Box>
+  );
+
+  if (readOnly) {
+    return (
+      answerList || (
+        <Text>No answers were captured when this request was created.</Text>
+      )
+    );
+  }
 
   return (
     <Stack space="space.100">
@@ -246,17 +315,7 @@ function App() {
         </SectionMessage>
       )}
 
-      {answers.length > 0 && (
-        <Box as="ol" paddingBlockStart="space.0" paddingInlineStart="space.300">
-          {answers.map(([key, value]) => (
-            <li key={key}>
-              <Text>
-                {key}: {value ?? "No value"}
-              </Text>
-            </li>
-          ))}
-        </Box>
-      )}
+      {answerList}
 
       {!step ? (
         <Text>

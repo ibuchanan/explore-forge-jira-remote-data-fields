@@ -4,6 +4,7 @@ import {
   findFormStateFieldId,
   formStateToCopy,
   isFormState,
+  portalFormStateValue,
 } from "../src/form-state";
 
 describe("isFormState", () => {
@@ -66,56 +67,83 @@ describe("findFormStateFieldId", () => {
   });
 });
 
+describe("portalFormStateValue", () => {
+  test("reads the form state the portal request-create panel submitted", () => {
+    expect(
+      portalFormStateValue({
+        "remote-data-fields-form-state": { team: "Jira" },
+      }),
+    ).toEqual({ team: "Jira" });
+  });
+
+  test.each([
+    ["is missing", undefined],
+    ["is not an object", "Jira"],
+    ["has no form state field", { other: { team: "Jira" } }],
+  ])("finds nothing when the property %s", (_, property) => {
+    expect(portalFormStateValue(property)).toBeUndefined();
+  });
+});
+
 describe("formStateToCopy", () => {
-  const fieldId = "customfield_10123";
   const createdEvent = {
     eventType: "avi:jira:created:issue",
     selfGenerated: false,
     issue: { id: "10042", key: "DEMO-7" },
   };
+  const portalProperty = (value: unknown) => ({
+    "remote-data-fields-form-state": value,
+  });
 
   test("copies the form state submitted in the create dialog", () => {
-    const issue = {
-      id: "10042",
-      key: "DEMO-7",
-      fields: { [fieldId]: { team: "Jira", releaseTrain: null } },
-    };
-    expect(formStateToCopy(createdEvent, issue, fieldId)).toEqual({
-      action: "copy",
-      state: { team: "Jira", releaseTrain: null },
-    });
+    expect(
+      formStateToCopy(createdEvent, {
+        fieldValue: { team: "Jira", releaseTrain: null },
+      }),
+    ).toEqual({ action: "copy", state: { team: "Jira", releaseTrain: null } });
   });
 
-  test("skips issues created without the form state field", () => {
-    const issue = { id: "10042", key: "DEMO-7", fields: { [fieldId]: null } };
-    expect(formStateToCopy(createdEvent, issue, fieldId)).toEqual({
-      action: "skip",
-      reason: "empty",
-    });
+  test("copies the form state submitted in the portal request-create panel", () => {
+    expect(
+      formStateToCopy(createdEvent, {
+        fieldValue: null,
+        portalProperty: portalProperty({ team: "Jira" }),
+      }),
+    ).toEqual({ action: "copy", state: { team: "Jira" } });
   });
 
-  test("skips a field value that is not form state", () => {
-    const issue = {
-      id: "10042",
-      key: "DEMO-7",
-      fields: { [fieldId]: { team: ["Jira"] } },
-    };
-    expect(formStateToCopy(createdEvent, issue, fieldId)).toEqual({
+  test("prefers the create dialog's field value over a portal property", () => {
+    expect(
+      formStateToCopy(createdEvent, {
+        fieldValue: { team: "Jira" },
+        portalProperty: portalProperty({ team: "Confluence" }),
+      }),
+    ).toEqual({ action: "copy", state: { team: "Jira" } });
+  });
+
+  test("skips issues created without form state", () => {
+    expect(
+      formStateToCopy(createdEvent, {
+        fieldValue: null,
+        portalProperty: undefined,
+      }),
+    ).toEqual({ action: "skip", reason: "empty" });
+  });
+
+  test.each([
+    ["field value", { fieldValue: { team: ["Jira"] } }],
+    ["portal property", { portalProperty: portalProperty({ team: 42 }) }],
+  ])("skips a %s that is not form state", (_, created) => {
+    expect(formStateToCopy(createdEvent, created)).toEqual({
       action: "skip",
       reason: "invalid",
     });
   });
 
   test("skips issues the app created itself", () => {
-    const issue = {
-      id: "10042",
-      key: "DEMO-7",
-      fields: { [fieldId]: { team: "Jira" } },
-    };
     const selfGenerated = { ...createdEvent, selfGenerated: true };
-    expect(formStateToCopy(selfGenerated, issue, fieldId)).toEqual({
-      action: "skip",
-      reason: "self-generated",
-    });
+    expect(
+      formStateToCopy(selfGenerated, { fieldValue: { team: "Jira" } }),
+    ).toEqual({ action: "skip", reason: "self-generated" });
   });
 });

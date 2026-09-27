@@ -11,12 +11,11 @@ modules:
     - key: remote-data-fields-api
       remote: data-fields-remote
   function:
-    - key: save-remote-data-fields
-      handler: resolvers.handler
     - key: copy-form-state-on-create
       handler: triggers.copyFormStateOnCreate
-  # Copies form state captured by the create dialog's custom field to the
-  # issue property that the post-create panels read and write.
+  # Copies form state captured at creation, by the create dialog's custom field
+  # or the portal request-create panel, to the issue property that the
+  # post-create panels read and write.
   trigger:
     - key: copy-form-state-on-create
       function: copy-form-state-on-create
@@ -56,7 +55,8 @@ modules:
         endpoint: remote-data-fields-api
       unlicensedAccess:
         - customer
-  jiraServiceManagement:portalRequestDetailPanel:
+  # Read-only: shows the request property captured by the create panel.
+  jiraServiceManagement:portalRequestDetail:
     - key: remote-data-fields-portal
       resource: remote-data-fields-ui
       resolver:

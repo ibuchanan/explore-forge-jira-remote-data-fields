@@ -78,7 +78,10 @@ Each `FormStateError` has `type` (a stable, machine-readable URI),
 
 ## Persistence
 
-This API does not save anything. The Forge app persists the confirmed
-`state` separately, as the issue entity property
-`remote-data-fields-form-state`, via the `write:jira-work` scope declared
-in [`apps/forge/manifest.yml`](../../apps/forge/manifest.yml).
+This API does not save anything. On an existing Jira issue, the UI
+persists confirmed `state` as the issue entity property
+`remote-data-fields-form-state` using Jira's user-context API and the
+`write:jira-work` scope declared in
+[`apps/forge/manifest.yml`](../../apps/forge/manifest.yml). At creation,
+the Jira custom field or JSM request property carries the submitted state;
+the issue-created trigger copies it to that issue property.

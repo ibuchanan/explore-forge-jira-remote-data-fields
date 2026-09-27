@@ -1,91 +1,63 @@
 # Jira remote data fields (Forge Remote)
 
-A sample Jira Forge app that shows how to keep form logic outside of
-Forge, in a Forge Remote. The app renders a **Remote data fields**
-issue-context panel with an ordered, type-ahead form (owning team,
-priority, release train). A Fastify remote owns the field order, option
-search, and validation; the Forge app only renders what the remote
-returns and saves the confirmed answers as a Jira issue entity property.
+[Atlassian explains this about Jira's custom fields](https://community.atlassian.com/learning/lesson/create-and-configure-custom-fields-in-jira):
 
-## Status and ownership
+> While system fields are the core of Jira,
+> fields created by Jira admins enable your teams to capture data
+> that is most relevant to them and use it in filters, automation, dashboards, and reporting.
 
-- Status: experimental example app.
-- Owner: [`ibuchanan`](.atlassian/OWNER).
+[The available field types](https://support.atlassian.com/jira-cloud-administration/docs/field-types-you-can-create-as-a-jira-admin/) cover values Jira can validate itself. If a field needs to select from values provided by an external API, Jira doesn't have a configurable type that matches.
 
-## How it works
+This Jira [Forge app](https://go.atlassian.com/forge) shows
+how to keep UI rendering separate from form logic.
+It renders an ordered, type-ahead **Remote data fields** form in Jira.
+A Node.js remote service owns
+the field order,
+option search,
+and validation;
+the Forge app renders what the remote returns and saves confirmed answers as a Jira issue property.
 
-- The Forge app (`apps/forge`) contributes a `jira:issueContext` panel and
-  JSM portal panels. They call the remote through `invokeRemote`, one step at
-  a time. The request-create panel submits completed answers as request
-  properties; existing-issue panels save them through a resolver
-  (`saveRemoteDataFields`).
-- The remote (`apps/remote`) is a Fastify service whose routes and
-  request validation come from
-  [`apps/remote/openapi.yaml`](apps/remote/openapi.yaml) via
-  `fastify-openapi-glue`: `POST /form/step`,
-  `POST /fields/{fieldKey}/options`, and `POST /form/validate`.
-  [`apps/remote/src/sample-form.ts`](apps/remote/src/sample-form.ts)
-  holds the demo field definitions and selectable values — edit it to
-  change the form.
-- Confirmed answers are saved to the issue entity property
-  `remote-data-fields-form-state` and require the `write:jira-work` scope.
+## Try the sample
 
-## Prerequisites
+The shortest guided path installs the app, starts the remote and a Cloudflare Quick Tunnel, deploys the app, and exercises the **Remote data fields** panel:
 
-- Node.js v24 (see [`.nvmrc`](.nvmrc)) and npm.
-- [Forge CLI](https://developer.atlassian.com/platform/forge/getting-started/),
-  with access to a Jira Cloud site to install into.
-- [`cloudflared`][cloudflared], used to expose the local remote through
-  a Quick Tunnel.
-- [`secretspec`](https://secretspec.dev), used to manage the environment
-  variables below.
-- [`yq`](https://github.com/mikefarah/yq), used by `scripts/register.sh`
-  to read the app ID out of the manifest.
-
-Run `npm run tools:check` to confirm all four CLIs are on `PATH`.
-
-[cloudflared]: https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/downloads/
-
-## First-time setup
-
-1. Install dependencies: `npm install`.
-2. Register the Forge app once per site, then record the site and app ID with `secretspec`:
+1. Install Node.js 24, npm, the [Forge CLI](https://developer.atlassian.com/platform/forge/getting-started/), [`cloudflared`](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/downloads/), [`secretspec`](https://secretspec.dev), and [`yq`](https://github.com/mikefarah/yq). Authenticate the Forge CLI and have a Jira Cloud site where you can register and install an app.
+2. From the repository root, install dependencies and check the required tools:
 
    ```bash
+   npm install
+   npm run tools:check
+   ```
+
+3. Registration requires a public HTTPS URL for the remote. Start the remote with `npm run --workspace=jira-remote-data-fields-backend start` and expose port 3000 with `cloudflared --no-autoupdate tunnel --url http://localhost:3000` in separate terminals. In another terminal, save the printed URL and register:
+
+   ```bash
+   bash scripts/env-var-set.sh REMOTE_BASE_URL https://your-tunnel.trycloudflare.com
    bash scripts/register.sh
    ```
 
-   This runs `forge register`, then writes the resulting `FORGE_APP_ID`
-   with `secretspec`. You will also need to set `FORGE_SITE` (for
-   example `example.atlassian.net`) the first time `secretspec` prompts
-   for it.
+   On first use, `secretspec` prompts for `FORGE_SITE`.
 
-## Run it
+4. Stop the temporary remote and tunnel. Run `npm run forge:deploy:tunnel` to start a fresh remote/tunnel and deploy. While it stays running, install the deployed app in another terminal with `npm run forge:install`, then open an issue and try **Remote data fields**. See the [tutorial](docs/tutorials/build-your-first-remote-data-field.md) for the full walkthrough and expected form behavior.
 
-```bash
-npm run forge:deploy:tunnel
-```
+## What it demonstrates
 
-This starts the remote, exposes it through a Cloudflare Quick Tunnel,
-sets `REMOTE_BASE_URL` to the tunnel's public URL, and deploys the Forge
-app. Keep it running while you use the app — it stops the remote and
-tunnel together on exit. Open an issue in the target Jira site and look
-for the **Remote data fields** panel.
+- A Jira issue context panel and a Jira create-dialog custom field use one shared form UI.
+- JSM request creation submits the form state to the host; the portal detail panel displays the captured state read-only.
+- A Fastify remote provides ordered form steps, option search, and validation, specified in OpenAPI.
+- Jira issue properties hold the post-creation form state.
 
-To iterate on the remote without redeploying the Forge app, run
-`npm run remote:start` in one terminal and `bash scripts/tunnel.sh` in
-another.
+This is sample code, not a production-ready connector. The current Forge manifest is the source of truth for the modules and scopes it declares.
 
-## Development
+## Documentation
 
-See [`DEVELOPMENT.md`](DEVELOPMENT.md) for the inner development loop:
-building and testing each workspace, linting, and the script test suite.
+- [Tutorial: build and run the sample](docs/tutorials/build-your-first-remote-data-field.md)
+- [How-to: add a form field](docs/how-to/add-a-form-field.md)
+- [Explanation: the Forge app and remote](docs/explanation/app-and-remote.md)
+- [Explanation: one form across Jira and JSM surfaces](docs/explanation/one-form-across-host-surfaces.md)
+- [Reference: form decision service API](docs/reference/form-decision-service-api.md)
+- [Development: repository layout and inner loop](DEVELOPMENT.md)
 
-## Contributing
+## Contributing and license
 
-See [`CONTRIBUTING.md`](CONTRIBUTING.md), including Atlassian's CLA
-requirement for external contributions.
-
-## License
-
-[Apache License 2.0](LICENSE).
+See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidance, including the CLA requirement. Licensed under the [Apache License 2.0](LICENSE).
