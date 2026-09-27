@@ -8,7 +8,8 @@ import { invoke, invokeRemote, view } from "@forge/bridge";
 import { useEffect, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 
-type FormState = Record<string, string | null>;
+import { type FormState, isFormState } from "./form-state";
+import { type Extension, hostSubmission, initialState } from "./host";
 
 type Field = {
   allowsNull: boolean;
@@ -28,11 +29,8 @@ type ProblemDetails = { detail?: string; title?: string };
 type FieldOption = { label: string; value: string };
 
 const NULL_OPTION_VALUE = "__null__";
-const PORTAL_REQUEST_CREATE_PROPERTY_PANEL =
-  "jiraServiceManagement:portalRequestCreatePropertyPanel";
-const PORTAL_REQUEST_CREATE_PROPERTY_KEY = "remote-data-fields-form-state";
 
-type ExtensionContext = { extension?: { type?: string } };
+type ExtensionContext = { extension?: Extension };
 
 function getRoot(): HTMLElement {
   const root = document.querySelector<HTMLElement>("#app");
@@ -48,17 +46,6 @@ function problemMessage(body: unknown, fallback: string): string {
     return problem.detail ?? problem.title ?? fallback;
   }
   return fallback;
-}
-
-function isFormState(value: unknown): value is FormState {
-  return (
-    !!value &&
-    typeof value === "object" &&
-    !Array.isArray(value) &&
-    Object.values(value).every(
-      (answer) => answer === null || typeof answer === "string",
-    )
-  );
 }
 
 async function callRemote<T>(
@@ -80,18 +67,23 @@ async function callRemote<T>(
   }
 }
 
-async function submitPortalRequestCreateState(
+async function getExtension(): Promise<Extension> {
+  const context = (await view.getContext()) as ExtensionContext;
+  return context.extension ?? {};
+}
+
+/**
+ * Hands the form state to a host that stores it on create (the portal
+ * request-create panel or the create dialog's custom field). Returns `false`
+ * on surfaces where the app saves the form state itself.
+ */
+async function submitToHost(
   state: FormState,
   isValid: boolean,
 ): Promise<boolean> {
-  const context = (await view.getContext()) as ExtensionContext;
-  if (context.extension?.type !== PORTAL_REQUEST_CREATE_PROPERTY_PANEL) {
-    return false;
-  }
-  await view.submit({
-    fields: [{ key: PORTAL_REQUEST_CREATE_PROPERTY_KEY, value: state }],
-    isValid,
-  });
+  const submission = hostSubmission(await getExtension(), state, isValid);
+  if (!submission) return false;
+  await view.submit(submission.payload);
   return true;
 }
 
@@ -102,7 +94,8 @@ function App() {
   // `evaluate` runs, and `step` is undefined until then.
   const [loading, setLoading] = useState(true);
   const [saved, setSaved] = useState(false);
-  const [isPortalRequestCreate, setIsPortalRequestCreate] = useState(false);
+  // Surfaces where the host stores the form state on create, so there is no Save button.
+  const [submitsOnCreate, setSubmitsOnCreate] = useState(false);
   const [error, setError] = useState<string>();
   const searchSequence = useRef(0);
 
@@ -124,11 +117,12 @@ function App() {
       }
       setState(response.body.state);
       setStep(response.body);
-      const submittedToPortal = await submitPortalRequestCreateState(
+      // `/form/step` only reports `complete` once every answer is valid.
+      const submitted = await submitToHost(
         response.body.state,
         response.body.complete,
       );
-      if (submittedToPortal && response.body.complete) setSaved(true);
+      if (submitted && response.body.complete) setSaved(true);
     } catch (cause) {
       setError(
         cause instanceof Error
@@ -155,7 +149,7 @@ function App() {
           ),
         );
       }
-      if (await submitPortalRequestCreateState(state, true)) {
+      if (await submitToHost(state, true)) {
         setSaved(true);
         return;
       }
@@ -222,19 +216,12 @@ function App() {
   // render but the initial-load calls intentionally never need to re-run.
   // biome-ignore lint/correctness/useExhaustiveDependencies: mount-once effect
   useEffect(() => {
-    void view
-      .getContext()
-      .then((context) =>
-        setIsPortalRequestCreate(
-          (context as ExtensionContext).extension?.type ===
-            PORTAL_REQUEST_CREATE_PROPERTY_PANEL,
-        ),
-      )
-      .catch((cause) =>
-        console.error("Failed to read extension context", cause),
-      );
-    void invoke<FormState | null>("getRemoteDataFields")
-      .then((response) => {
+    void getExtension()
+      .then(async (extension) => {
+        setSubmitsOnCreate(hostSubmission(extension, {}, false) !== undefined);
+        const hostState = initialState(extension);
+        if (hostState) return evaluate(hostState);
+        const response = await invoke<FormState | null>("getRemoteDataFields");
         const persistedState = isFormState(response)
           ? response
           : response?.body;
@@ -279,14 +266,14 @@ function App() {
         <Stack space="space.100">
           <SectionMessage appearance={saved ? "success" : "information"}>
             <Text>
-              {isPortalRequestCreate
-                ? "All answers are complete. They will be stored when you create this request."
+              {submitsOnCreate
+                ? "All answers are complete. They will be stored when you create it."
                 : saved
                   ? "Saved to this issue."
                   : "All answers are complete. Save to store them on this issue."}
             </Text>
           </SectionMessage>
-          {!isPortalRequestCreate && (
+          {!submitsOnCreate && (
             <Box>
               <Button
                 appearance="primary"

@@ -1,9 +1,12 @@
 import api, { route } from "@forge/api";
 import Resolver from "@forge/resolver";
 
-const ENTITY_PROPERTY_KEY = "remote-data-fields-form-state";
+import {
+  FORM_STATE_PROPERTY_KEY,
+  type FormState,
+  isFormState,
+} from "./form-state";
 
-type FormState = Record<string, string | null>;
 type SaveRemoteDataFieldsPayload = { state: FormState };
 type IssueProperty = { value: unknown };
 
@@ -20,7 +23,7 @@ resolver.define<undefined, FormState | null>(
     const response = await api
       .asUser()
       .requestJira(
-        route`/rest/api/3/issue/${issueId}/properties/${ENTITY_PROPERTY_KEY}`,
+        route`/rest/api/3/issue/${issueId}/properties/${FORM_STATE_PROPERTY_KEY}`,
       );
     if (response.status === 404) return null;
     if (!response.ok) {
@@ -30,17 +33,10 @@ resolver.define<undefined, FormState | null>(
     }
 
     const { value } = (await response.json()) as IssueProperty;
-    if (
-      !value ||
-      typeof value !== "object" ||
-      Array.isArray(value) ||
-      Object.values(value).some(
-        (answer) => answer !== null && typeof answer !== "string",
-      )
-    ) {
+    if (!isFormState(value)) {
       throw new Error("The saved form state has an invalid format.");
     }
-    return value as FormState;
+    return value;
   },
 );
 
@@ -51,7 +47,7 @@ resolver.define<SaveRemoteDataFieldsPayload, void>(
     const response = await api
       .asUser()
       .requestJira(
-        route`/rest/api/3/issue/${issueId}/properties/${ENTITY_PROPERTY_KEY}`,
+        route`/rest/api/3/issue/${issueId}/properties/${FORM_STATE_PROPERTY_KEY}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },

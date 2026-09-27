@@ -13,6 +13,35 @@ modules:
   function:
     - key: save-remote-data-fields
       handler: resolvers.handler
+    - key: copy-form-state-on-create
+      handler: triggers.copyFormStateOnCreate
+  # Copies form state captured by the create dialog's custom field to the
+  # issue property that the post-create panels read and write.
+  trigger:
+    - key: copy-form-state-on-create
+      function: copy-form-state-on-create
+      events:
+        - avi:jira:created:issue
+  # One field hosts the whole remote form in the Jira create dialog; its value
+  # is the form state. Admins add it to create screens and mark it required.
+  jira:customField:
+    - key: remote-data-fields-value
+      name: Remote data fields
+      description: Answers to the remote data-field form, captured when the issue is created.
+      type: object
+      resolver:
+        endpoint: remote-data-fields-api
+      schema:
+        type: object
+      view:
+        experience:
+          - issue-view
+        formatter:
+          expression: "value == null ? '' : value.entries().map(e => e[0] + ': ' + (e[1] != null ? e[1] : 'No value')).join(', ')"
+      edit:
+        resource: remote-data-fields-ui
+        experience:
+          - issue-create
   jira:issueContext:
     - key: remote-data-fields
       resource: remote-data-fields-ui
