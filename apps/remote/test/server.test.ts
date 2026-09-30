@@ -33,7 +33,7 @@ async function post(
   });
 }
 
-test("starts the sample form with the team field", async () => {
+test("starts the sample form with the customer field", async () => {
   const response = await post("/form/step", { state: {} });
 
   assert.equal(response.statusCode, 200);
@@ -41,42 +41,70 @@ test("starts the sample form with the team field", async () => {
     complete: false,
     state: {},
     field: {
-      key: "team",
-      label: "Owning team",
-      description: "Which team owns this work?",
-      placeholder: "Search teams",
-      minimumQueryLength: 0,
+      key: "customer",
+      label: "Customer",
+      description: "Who is this request for?",
+      placeholder: "Search example customers",
+      minimumQueryLength: 1,
       allowsNull: false,
     },
   });
 });
 
-test("limits broad team searches to 25 options", async () => {
-  const response = await post("/fields/team/options", { state: {}, query: "" });
+test("limits broad customer searches to 25 options", async () => {
+  const response = await post("/fields/customer/options", {
+    state: {},
+    query: "example",
+  });
   const body = response.json();
 
   assert.equal(response.statusCode, 200);
   assert.equal(body.options.length, 25);
   assert.equal(body.truncated, true);
   assert.deepEqual(body.options.slice(0, 3), [
-    "Account Experience",
-    "Admin Experience",
-    "Analytics",
+    "Example Customer 01",
+    "Example Customer 02",
+    "Example Customer 03",
   ]);
 });
 
-test("returns a focused team search without truncation", async () => {
-  const response = await post("/fields/team/options", {
+test("returns a focused customer search without truncation", async () => {
+  const response = await post("/fields/customer/options", {
     state: {},
-    query: "rovo",
+    query: "customer 03",
   });
 
   assert.equal(response.statusCode, 200);
-  assert.deepEqual(response.json(), { options: ["Rovo"], truncated: false });
+  assert.deepEqual(response.json(), {
+    options: ["Example Customer 03"],
+    truncated: false,
+  });
 });
 
-test("accepts a complete form with the optional release train omitted", async () => {
-  const state = { team: "Rovo", priority: "High", releaseTrain: null };
+test("selecting a type reveals its matching context fields", async () => {
+  const response = await post("/form/step", {
+    state: {
+      customer: "Example Customer 01",
+      requestType: "Support request",
+      type: "Escalation",
+    },
+  });
+
+  assert.equal(response.statusCode, 200);
+  assert.equal(response.json().field.key, "escalationOrigin");
+  assert.equal(response.json().field.label, "Escalation origin");
+});
+
+test("accepts a complete escalation form", async () => {
+  const state = {
+    customer: "Example Customer 01",
+    requestType: "Support request",
+    type: "Escalation",
+    escalationOrigin: "Monitoring alert",
+    feature: "Reporting",
+    preventiveMeasures: "Additional monitoring",
+    rootCause: "Configuration issue",
+  };
 
   const step = await post("/form/step", { state });
   const validation = await post("/form/validate", { state });
@@ -86,11 +114,11 @@ test("accepts a complete form with the optional release train omitted", async ()
 });
 
 test("rejects out-of-order answers", async () => {
-  const response = await post("/form/step", { state: { priority: "High" } });
+  const response = await post("/form/step", { state: { type: "Escalation" } });
 
   assert.equal(response.statusCode, 422);
-  assert.equal(response.json().firstInvalidFieldKey, "team");
-  assert.match(response.json().detail, /Owning team/);
+  assert.equal(response.json().firstInvalidFieldKey, "customer");
+  assert.match(response.json().detail, /Customer/);
 });
 
 test("rejects searches for an unknown field", async () => {
